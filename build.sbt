@@ -11,6 +11,11 @@ scalaVersion := "2.12.2"
 libraryDependencies += guice
 
 // Test Database
+libraryDependencies += javaJdbc
+libraryDependencies += javaEbean
+libraryDependencies += "org.postgresql" % "postgresql" % "9.3-1102-jdbc4"
+
+
 libraryDependencies += "com.h2database" % "h2" % "1.4.194"
 
 // Testing libraries for dealing with CompletionStage...
