@@ -1,8 +1,11 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import models.User;
 import play.libs.Json;
 import play.mvc.*;
+
+import java.util.List;
 
 class AppSummary {
     private String content;
@@ -23,6 +26,8 @@ class AppSummary {
 public class HomeController extends Controller {
 
     public Result appSummary() {
+        // Find all tasks
+        List<User> users = User.find.all();
         JsonNode jsonNode = Json.toJson(new AppSummary("Java Play React Seed"));
         return ok(jsonNode).as("application/json");
     }

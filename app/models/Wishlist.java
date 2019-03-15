@@ -1,22 +1,22 @@
-package model;
+package models;
 
 import java.sql.Timestamp;
 
-public class User {
+public class Wishlist {
     private long id;
-    private String login;
-    private Integer password_hash;
+    private long user_id;
+    private long game_id;
     private Timestamp created_at;
     private boolean is_deleted;
 
-    public User() {
+    public Wishlist() {
         super();
     }
 
-    public User(long id, String login, Integer password_hash, Timestamp created_at, boolean is_deleted) {
+    public Wishlist(long id, long user_id, long game_id, Timestamp created_at, boolean is_deleted) {
         this.id = id;
-        this.login = login;
-        this.password_hash = password_hash;
+        this.user_id = user_id;
+        this.game_id = game_id;
         this.created_at = created_at;
         this.is_deleted = is_deleted;
     }
@@ -25,12 +25,12 @@ public class User {
         this.id = id;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
     }
 
-    public void setPassword_hash(Integer password_hash) {
-        this.password_hash = password_hash;
+    public void setGame_id(long game_id) {
+        this.game_id = game_id;
     }
 
     public void setCreated_at(Timestamp created_at) {
@@ -45,12 +45,12 @@ public class User {
         return id;
     }
 
-    public String getLogin() {
-        return login;
+    public long getUser_id() {
+        return user_id;
     }
 
-    public Integer getPassword_hash() {
-        return password_hash;
+    public long getGame_id() {
+        return game_id;
     }
 
     public Timestamp getCreated_at() {
