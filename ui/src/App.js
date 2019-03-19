@@ -1,64 +1,42 @@
-import React, {Component} from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
+import React from 'react'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import AppView from './appview'
+import * as ReactRouterDOM from "react-router-dom";
+import LoginForm from "./login/login";
 
-import reactLogo from './images/react.svg';
-import playLogo from './images/play.svg';
-import javaLogo from './images/java.webp';
-import Client from "./Client";
+const Router = ReactRouterDOM.BrowserRouter;
+const Route = ReactRouterDOM.Route;
+const Switch = ReactRouterDOM.Switch;
 
-import './App.css';
+var reducer = require("./reducer.js");
+const store = createStore(reducer)
 
-const Tech = ({ match }) => {
-  return <div>Current Route: {match.params.tech}</div>
-};
+store.dispatch({
+  type: "SET_STATE",
+  state: {
+    credentials: ["iPhone 7 Plus", "Samsung Galaxy A5"]
+  }
+});
 
-
-class App extends Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {title: ''};
   }
 
-  async componentDidMount() {
-    Client.getSummary(summary => {
-      this.setState({
-        title: summary.content
-      });
-    });
-  }
-
-  render() {
-    return (
-      <Router>
-        <div className="App">
-          <h1>Welcome to {this.state.title}!</h1>
-          <nav>
-            <Link to="java" >
-              <img width="400" height="400" src={javaLogo} alt="Java Logo" />
-            </Link>
-            <Link to="play" >
-              <img width="400" height="400" src={playLogo} alt="Play Framework Logo" />
-            </Link>
-            <Link to="react" >
-              <img width="400" height="400" src={reactLogo} className="App-logo" alt="React Logo"/>
-            </Link>
-          </nav>
-          <Route path="/:tech" component={Tech} />
-          <div>
-            <h2>Check out the project on GitHub for more information</h2>
-            <h3>
-              <a target="_blank" rel="noopener noreferrer" href="https://github.com/yohangz/java-play-react-seed">
-                java-play-react-seed
-              </a>
-            </h3>
-          </div>
-        </div>
-      </Router>
-    );
+    render()
+    {
+      return (
+        <Provider store={store}>
+          <Router>
+            <Switch>
+              <Route exact path="/" component={AppView}/>
+              <Route exact path="/login" component={LoginForm}/>
+            </Switch>
+          </Router>
+        </Provider>
+      );
   }
 }
 
