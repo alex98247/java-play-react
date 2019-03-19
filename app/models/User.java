@@ -27,6 +27,19 @@ public class User extends Model {
         this.is_deleted = is_deleted;
     }
 
+    public User getByLoginAndPassword(String login, String password) {
+        try {
+            User user = getByLogin(login);
+            if (user == null) throw new UserNotFoundException("User with login '"+login+"' was not found");
+            password = PasswordCreator.sha1Password(password, user.getSalt());
+            if (!password.equals(user.getPassword())) throw new UserAuthenticationException("Password for user '"+login+"' doesn't match");
+            return user;
+        } catch (Exception e) {
+            Logger.error("An error occurred on getting user by login and password. Login used: "+login, e);
+        }
+        return null;
+    }
+
     public static final Finder<Long, User> find = new Finder<>(User.class);
 
     public void setId(long id) {
