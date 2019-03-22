@@ -12,6 +12,7 @@ libraryDependencies += guice
 
 libraryDependencies += "io.ebean" % "ebean" % "11.36.1"
 libraryDependencies += "org.postgresql" % "postgresql" % "42.2.2"
+libraryDependencies += "be.objectify" %% "deadbolt-java" % "2.6.1"
 
 // Testing libraries for dealing with CompletionStage...
 libraryDependencies += "org.assertj" % "assertj-core" % "3.6.2" % Test

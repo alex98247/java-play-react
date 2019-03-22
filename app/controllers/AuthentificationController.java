@@ -1,10 +1,13 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import io.ebean.annotation.Transactional;
 import models.User;
+import play.Logger;
 import play.libs.Json;
 import play.mvc.*;
 
+import java.text.Normalizer;
 import java.util.List;
 
 public class LoginForm {
@@ -46,7 +49,7 @@ public class LoginForm {
 
 public class AuthentificationController extends Controller {
 
-    private static Form<loginform> loginForm = Form.form(LoginForm.class);
+    private static Form<loginform> loginForm = Normalizer.Form.form(LoginForm.class);
 
     @Transactional
     public static Result login() {
@@ -63,5 +66,11 @@ public class AuthentificationController extends Controller {
             return redirect(routes.AuthentificationController.dashboard());
         }
         return badRequest(login.render(submittedForm, flash()));
+    }
+
+    public Result appSummary() {
+        // Find all tasks
+        JsonNode jsonNode = Json.toJson(new AppSummary("Java Play React Seed"));
+        return ok(jsonNode).as("application/json");
     }
 }

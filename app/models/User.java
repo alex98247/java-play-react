@@ -1,19 +1,29 @@
 package models;
 
 import java.security.Timestamp;
+import java.util.List;
 import javax.persistence.*;
 
+import be.objectify.deadbolt.java.models.Permission;
+import be.objectify.deadbolt.java.models.Role;
+import be.objectify.deadbolt.java.models.Subject;
 import io.ebean.*;
 
 @Table(name = "users")
 @Entity
-public class User extends Model {
+public class User extends Model implements Subject {
     @Id
     private long id;
     private String login;
     private Integer password_hash;
     private Timestamp created_at;
     private boolean is_deleted;
+
+    @ManyToMany
+    public List<SecurityRole> roles;
+
+    @ManyToMany
+    public List<UserPermission> permissions;
 
     public User() {
         super();
@@ -25,19 +35,6 @@ public class User extends Model {
         this.password_hash = password_hash;
         this.created_at = created_at;
         this.is_deleted = is_deleted;
-    }
-
-    public User getByLoginAndPassword(String login, String password) {
-        try {
-            User user = getByLogin(login);
-            if (user == null) throw new UserNotFoundException("User with login '"+login+"' was not found");
-            password = PasswordCreator.sha1Password(password, user.getSalt());
-            if (!password.equals(user.getPassword())) throw new UserAuthenticationException("Password for user '"+login+"' doesn't match");
-            return user;
-        } catch (Exception e) {
-            Logger.error("An error occurred on getting user by login and password. Login used: "+login, e);
-        }
-        return null;
     }
 
     public static final Finder<Long, User> find = new Finder<>(User.class);
@@ -80,5 +77,27 @@ public class User extends Model {
 
     public boolean isIs_deleted() {
         return is_deleted;
+    }
+
+    @Override
+    public List<? extends Role> getRoles() {
+        return roles;
+    }
+
+    @Override
+    public List<? extends Permission> getPermissions() {
+        return permissions;
+    }
+
+    @Override
+    public String getIdentifier() {
+        return login;
+    }
+
+    public static User findByUserName(String userName)
+    {
+        return find.query().where()
+                .eq("login",
+                        userName).findOne();
     }
 }
