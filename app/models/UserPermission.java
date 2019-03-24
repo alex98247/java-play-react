@@ -5,8 +5,10 @@ import io.ebean.Finder;
 import io.ebean.Model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 
+@Entity
 public class UserPermission extends Model implements Permission
 {
     @Id

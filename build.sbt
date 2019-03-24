@@ -6,13 +6,14 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava).settings(
   watchSources ++= (baseDirectory.value / "public/ui" ** "*").get
 )
 
-scalaVersion := "2.12.2"
+scalaVersion := "2.11.2"
 
 libraryDependencies += guice
 
 libraryDependencies += "io.ebean" % "ebean" % "11.36.1"
 libraryDependencies += "org.postgresql" % "postgresql" % "42.2.2"
 libraryDependencies += "be.objectify" %% "deadbolt-java" % "2.6.1"
+libraryDependencies +=  "ws.securesocial" %% "securesocial" % "3.0-M8"
 
 // Testing libraries for dealing with CompletionStage...
 libraryDependencies += "org.assertj" % "assertj-core" % "3.6.2" % Test

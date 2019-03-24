@@ -25,18 +25,6 @@ public class User extends Model implements Subject {
     @ManyToMany
     public List<UserPermission> permissions;
 
-    public User() {
-        super();
-    }
-
-    public User(long id, String login, Integer password_hash, Timestamp created_at, boolean is_deleted) {
-        this.id = id;
-        this.login = login;
-        this.password_hash = password_hash;
-        this.created_at = created_at;
-        this.is_deleted = is_deleted;
-    }
-
     public static final Finder<Long, User> find = new Finder<>(User.class);
 
     public void setId(long id) {
