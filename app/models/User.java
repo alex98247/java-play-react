@@ -1,13 +1,17 @@
 package models;
 
+import java.io.Serializable;
 import java.security.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 
 import io.ebean.*;
+import securesocial.core.BasicProfile;
 
 @Table(name = "users")
 @Entity
-public class User extends Model {
+public class User extends Model implements Serializable {
     @Id
     private long id;
     private String login;
@@ -26,6 +30,15 @@ public class User extends Model {
         this.created_at = created_at;
         this.is_deleted = is_deleted;
     }
+
+    public User(BasicProfile user) {
+        this.main = user;
+        identities = new ArrayList<BasicProfile>();
+        identities.add(user);
+    }
+
+    public BasicProfile main;
+    public List<BasicProfile> identities;
 
     public static final Finder<Long, User> find = new Finder<>(User.class);
 
