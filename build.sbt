@@ -8,10 +8,10 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava).settings(
 
 scalaVersion := "2.11.2"
 
+libraryDependencies ++= Seq(ehcache)
 libraryDependencies += guice
-
-libraryDependencies ++= Seq("com.typesafe.play" %% "play-cache" % "2.6.13", "org.postgresql" % "postgresql" % "42.2.2")
-libraryDependencies += "ws.securesocial" %% "securesocial" % "3.0-M7"
+libraryDependencies += "ws.securesocial" %% "securesocial" % "3.0-M8"
+libraryDependencies += "org.postgresql" % "postgresql" % "42.2.2"
 
 // Testing libraries for dealing with CompletionStage...
 libraryDependencies += "org.assertj" % "assertj-core" % "3.6.2" % Test
