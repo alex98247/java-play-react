@@ -17,8 +17,10 @@ libraryDependencies += "org.postgresql" % "postgresql" % "42.2.2"
 libraryDependencies += "org.assertj" % "assertj-core" % "3.6.2" % Test
 libraryDependencies += "org.awaitility" % "awaitility" % "2.0.0" % Test
 
+libraryDependencies += "io.swagger" %% "swagger-play2" % "1.6.0"
+
 // Make verbose tests
 testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
 
 lazy val myProject = (project in file("."))
-  .enablePlugins(PlayJava, PlayEbean)
+  .enablePlugins(PlayJava, PlayScala, PlayEbean)
