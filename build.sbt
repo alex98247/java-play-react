@@ -12,6 +12,7 @@ libraryDependencies += guice
 
 libraryDependencies += "io.ebean" % "ebean" % "11.36.1"
 libraryDependencies += "org.postgresql" % "postgresql" % "42.2.2"
+libraryDependencies += "com.konghq" % "unirest-java" % "2.1.02"
 
 // Testing libraries for dealing with CompletionStage...
 libraryDependencies += "org.assertj" % "assertj-core" % "3.6.2" % Test
