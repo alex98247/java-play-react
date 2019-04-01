@@ -10,7 +10,6 @@ scalaVersion := "2.11.2"
 
 libraryDependencies ++= Seq(ehcache)
 libraryDependencies += guice
-libraryDependencies += "ws.securesocial" %% "securesocial" % "3.0-M8"
 libraryDependencies += "org.postgresql" % "postgresql" % "42.2.2"
 
 // Testing libraries for dealing with CompletionStage...

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import models.User;
 import play.libs.Json;
 import play.mvc.*;
-import securesocial.core.java.SecuredAction;
 
 import java.util.List;
 
@@ -26,7 +25,6 @@ class AppSummary {
 
 public class HomeController extends Controller {
 
-    @SecuredAction
     public Result appSummary() {
         // Find all tasks
         List<User> users = User.find.all();
