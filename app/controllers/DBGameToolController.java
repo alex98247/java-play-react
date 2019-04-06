@@ -1,21 +1,19 @@
 package controllers;
 
-import kong.unirest.HttpResponse;
-import kong.unirest.JsonNode;
-import kong.unirest.Unirest;
+import models.Games;
 import play.mvc.Controller;
 import play.mvc.Result;
+import tools.DBGame;
+
+import java.util.List;
 
 public class DBGameToolController extends Controller {
 
     public Result getGames() {
 
-        HttpResponse<JsonNode> jsonResponse = Unirest.post("https://api-v3.igdb.com/game_videos")
-                .header("user-key", "d0fc4e5aa35986706d0b32bb67d615a7")
-                .header("Accept", "application/json")
-                .body("fields game,name,video_id;")
-                .asJson();
+        DBGame dbGame = new DBGame();
+        List<Games> games = dbGame.getGames(100);
 
-        return ok(jsonResponse.getBody().toString());
+        return ok(games.get(51).getName() + " " + games.get(0).getName());
     }
 }
