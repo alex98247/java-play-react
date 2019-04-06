@@ -1,13 +1,13 @@
 package models;
 
+import io.ebean.Finder;
+import io.ebean.Model;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.security.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.*;
-
-import io.ebean.*;
-import securesocial.core.BasicProfile;
 
 @Table(name = "users")
 @Entity
@@ -30,15 +30,6 @@ public class User extends Model implements Serializable {
         this.created_at = created_at;
         this.is_deleted = is_deleted;
     }
-
-    public User(BasicProfile user) {
-        this.main = user;
-        identities = new ArrayList<BasicProfile>();
-        identities.add(user);
-    }
-
-    public BasicProfile main;
-    public List<BasicProfile> identities;
 
     public static final Finder<Long, User> find = new Finder<>(User.class);
 

@@ -14,6 +14,8 @@ GET     /api/summary2               controllers.HomeController.facebookAdminInde
 #GET     /*file                      controllers.FrontendController.assetOrDefault(file)
 
 GET         /oidc/index                  controllers.Application.oidcIndex
+GET         /jwt                  controllers.Application.jwt
+GET         /api/formIndex                  controllers.Application.formIndex
 
 GET         /callback                         @org.pac4j.play.CallbackController.callback()
 POST        /callback                         @org.pac4j.play.CallbackController.callback()
@@ -23,3 +25,4 @@ GET         /logout                           @org.pac4j.play.LogoutController.l
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                     controllers.Assets.at(path="/public", file)
+

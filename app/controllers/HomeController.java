@@ -1,15 +1,11 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.google.inject.Inject;
 import models.User;
-import org.pac4j.core.profile.CommonProfile;
-import org.pac4j.core.profile.ProfileManager;
-import org.pac4j.play.PlayWebContext;
 import org.pac4j.play.java.Secure;
-import org.pac4j.play.store.PlaySessionStore;
 import play.libs.Json;
-import play.mvc.*;
+import play.mvc.Controller;
+import play.mvc.Result;
 
 import java.util.List;
 

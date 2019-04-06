@@ -10,9 +10,9 @@
   },
   "proxy": "http://localhost:9000",
   "dependencies": {
-    "immutable": "^4.0.0-rc.12",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "immutable": "^3.8.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.8",
