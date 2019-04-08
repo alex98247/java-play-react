@@ -12,31 +12,11 @@ import java.sql.Timestamp;
 public class Games {
     private long id;
     private String name;
-    private String company;
-    private Date year;
-    private Timestamp created_at;
-    private boolean is_deleted;
+    private double popularity;
+    private int created_at;
 
     public Games() {
         super();
-    }
-
-    public Games(Games game) {
-        this.id = game.getId();
-        this.name = game.getName();
-        this.company = game.getCompany();
-        this.year = game.getYear();
-        this.created_at = game.getCreated_at();
-        this.is_deleted = game.isIs_deleted();
-    }
-
-    public Games(long id, String name, String company, Date year, Timestamp created_at, boolean is_deleted) {
-        this.id = id;
-        this.name = name;
-        this.company = company;
-        this.year = year;
-        this.created_at = created_at;
-        this.is_deleted = is_deleted;
     }
 
     public static final Finder<Long, Games> find = new Finder<>(Games.class);
@@ -49,21 +29,7 @@ public class Games {
         this.name = name;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
-    }
 
-    public void setYear(Date year) {
-        this.year = year;
-    }
-
-    public void setCreated_at(Timestamp created_at) {
-        this.created_at = created_at;
-    }
-
-    public void setIs_deleted(boolean is_deleted) {
-        this.is_deleted = is_deleted;
-    }
 
     public long getId() {
         return id;
@@ -73,19 +39,20 @@ public class Games {
         return name;
     }
 
-    public String getCompany() {
-        return company;
-    }
 
-    public Date getYear() {
-        return year;
-    }
-
-    public Timestamp getCreated_at() {
+    public int getCreated_at() {
         return created_at;
     }
 
-    public boolean isIs_deleted() {
-        return is_deleted;
+    public void setCreated_at(int created_at) {
+        this.created_at = created_at;
+    }
+
+    public double getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(double popularity) {
+        this.popularity = popularity;
     }
 }
