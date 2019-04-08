@@ -13,12 +13,11 @@ create table claim (
 );
 
 create table games (
-  id                            bigint not null,
+  id                            bigserial not null,
   name                          varchar(255),
-  company                       varchar(255),
-  year                          date,
-  created_at                    timestamptz,
-  is_deleted                    boolean default false not null
+  popularity                    float not null,
+  created_at                    integer not null,
+  constraint pk_games primary key (id)
 );
 
 create table promo (

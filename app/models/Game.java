@@ -1,25 +1,26 @@
 package models;
 
 import io.ebean.Finder;
+import io.ebean.Model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Date;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "games")
-public class Games {
+public class Game extends Model {
+    @Id
     private long id;
     private String name;
     private double popularity;
     private int created_at;
 
-    public Games() {
+    public Game() {
         super();
     }
 
-    public static final Finder<Long, Games> find = new Finder<>(Games.class);
+    public static final Finder<Long, Game> find = new Finder<>(Game.class);
 
     public void setId(long id) {
         this.id = id;

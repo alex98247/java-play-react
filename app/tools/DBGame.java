@@ -5,7 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
-import models.Games;
+import models.Game;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -14,11 +14,11 @@ import java.util.List;
 
 public class DBGame {
 
-    public List<Games> getGames(int count) {
+    public List<Game> getGames(int count) {
         int quotient = count / 50;
         int remainder = count - quotient * 50;
         int timestamp = -631162800;
-        List<Games> games;
+        List<Game> games;
         games = getButchGames(timestamp, remainder);
         for (int i = 0; i < quotient; i++) {
             timestamp = games.stream().map(x -> x.getCreated_at()).max(Comparator.comparing(Integer::valueOf)).orElse(timestamp);
@@ -27,7 +27,7 @@ public class DBGame {
         return games;
     }
 
-    private List<Games> getButchGames(int timestamp, int count) {
+    private List<Game> getButchGames(int timestamp, int count) {
         HttpResponse<JsonNode> jsonResponse = Unirest.post("https://api-v3.igdb.com/games")
                 .header("user-key", "d0fc4e5aa35986706d0b32bb67d615a7")
                 .header("Accept", "application/json")
@@ -35,9 +35,9 @@ public class DBGame {
                 .asJson();
 
         Gson googleJson = new Gson();
-        Type typeToken = new TypeToken<ArrayList<Games>>() {
+        Type typeToken = new TypeToken<ArrayList<Game>>() {
         }.getType();
-        ArrayList<Games> games = googleJson.fromJson(jsonResponse.getBody().toString(), typeToken);
+        ArrayList<Game> games = googleJson.fromJson(jsonResponse.getBody().toString(), typeToken);
         return games;
     }
 }

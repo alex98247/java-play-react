@@ -27,7 +27,6 @@ public class HomeController extends Controller {
 
     public Result appSummary() {
         // Find all tasks
-        List<User> users = User.find.all();
         JsonNode jsonNode = Json.toJson(new AppSummary("Java Play React Seed"));
         return ok(jsonNode).as("application/json");
     }
