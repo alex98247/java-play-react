@@ -1,8 +1,10 @@
 package models;
 
+import javax.persistence.Entity;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+@Entity
 public class Games {
     private long id;
     private String name;
@@ -13,6 +15,15 @@ public class Games {
 
     public Games() {
         super();
+    }
+
+    public Games(Games game) {
+        this.id = game.getId();
+        this.name = game.getName();
+        this.company = game.getCompany();
+        this.year = game.getYear();
+        this.created_at = game.getCreated_at();
+        this.is_deleted = game.isIs_deleted();
     }
 
     public Games(long id, String name, String company, Date year, Timestamp created_at, boolean is_deleted) {

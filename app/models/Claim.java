@@ -2,6 +2,7 @@ package models;
 
 import java.sql.Timestamp;
 
+@Entity
 public class Claim {
     private long id;
     private long user_id;
