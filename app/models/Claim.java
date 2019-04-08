@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.Entity;
 import java.sql.Timestamp;
 
 @Entity

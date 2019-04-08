@@ -1,10 +1,14 @@
 package models;
 
+import io.ebean.Finder;
+
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
+@Table(name = "games")
 public class Games {
     private long id;
     private String name;
@@ -34,6 +38,8 @@ public class Games {
         this.created_at = created_at;
         this.is_deleted = is_deleted;
     }
+
+    public static final Finder<Long, Games> find = new Finder<>(Games.class);
 
     public void setId(long id) {
         this.id = id;
