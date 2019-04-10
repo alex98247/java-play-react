@@ -6,8 +6,9 @@
 GET           /                            controllers.FrontendController.index()
 
 # An example route (Prefix all API routes with apiPrefix defined in application.conf)
-GET           /api/summary                 controllers.HomeController.appSummary
 GET           /api/game                    controllers.GameController.getGames
+
++nocsrf
 POST          /api/game                    controllers.GameController.addGames
 PUT           /api/game                    controllers.GameController.updateGames
 DELETE        /api/game/$id<[0-9]+>        controllers.GameController.deleteGames(id: Long)

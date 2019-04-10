@@ -6,6 +6,7 @@ import io.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "games")
@@ -14,7 +15,7 @@ public class Game extends Model {
     private long id;
     private String name;
     private double popularity;
-    private int created_at;
+    private Timestamp created_at;
 
     public Game() {
         super();
@@ -41,11 +42,11 @@ public class Game extends Model {
     }
 
 
-    public int getCreated_at() {
+    public Timestamp getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(int created_at) {
+    public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
     }
 
