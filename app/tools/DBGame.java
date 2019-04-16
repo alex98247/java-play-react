@@ -1,6 +1,6 @@
 package tools;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
@@ -38,13 +38,17 @@ public class DBGame {
         HttpResponse<JsonNode> jsonResponse = Unirest.post("https://api-v3.igdb.com/games")
                 .header("user-key", "d0fc4e5aa35986706d0b32bb67d615a7")
                 .header("Accept", "application/json")
-                .body("fields id,name,popularity,created_at; limit " + count + "; where created_at > " + timestamp + ";")
+                .body("fields id,name,popularity,created_at; limit " + count + "; where created_at > " + timestamp.getTime() + ";")
                 .asJson();
 
-        Gson googleJson = new Gson();
+        Gson googleJson = new GsonBuilder()
+                .registerTypeAdapter(Timestamp.class, (JsonDeserializer<Timestamp>) (json, typeOfT, context) -> new Timestamp(json.getAsJsonPrimitive().getAsLong()))
+                .registerTypeAdapter(Timestamp.class, (JsonSerializer<Timestamp>) (date, type, jsonSerializationContext) -> new JsonPrimitive(date.getTime()))
+                .create();
         Type typeToken = new TypeToken<ArrayList<Game>>() {
         }.getType();
-        ArrayList<Game> games = googleJson.fromJson(jsonResponse.getBody().toString(), typeToken);
+        String jsonBody = jsonResponse.getBody().toString();
+        ArrayList<Game> games = googleJson.fromJson(jsonBody, typeToken);
         return games;
     }
 }
