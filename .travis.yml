@@ -1,16 +1,14 @@
 language: scala
-
 jdk: oraclejdk8
-
 scala:
-   - 2.12.2
-
+- 2.12.2
 before_install:
 - npm cache clean --force
 - npm install
-
 deploy:
   provider: heroku
-  app: play-react-test
+  app: java-play-react
+  on:
+    repo: alex98247/java-play-react
   api_key:
-    secure: AAAAB3NzaC1yc2EAAAADAQABAAABAQCfmsc8VBVSv/J+QPSx/9BiD0epQUaHlMzYzhounOHPzX0S1JHddoJu3DMKI2mS1W/m1FBZDsUmveu9JPbiL8$
+    secure: QFy5jFc4d5LPCgYQoaBbA3zYMQ00A9z6zsHIicx/VLirRyMuZaEV/sWu33eoJzjOG9o+uYEvQwt2EhpuA9wfisxB0SYdZjyK1gtt7RRcya41PdvyLxFJKU4pSNKGu1k7LRWTYMoW+aGIO93vA/6l1ePXH6SiMYchVl1qylU2NAjD3FtxpwvYHGe9tP06aMSqXf3Icws9LIsMp6fy7Q4cHM8QV+OIAlBKXvD0m74sAhirEJFzg+RM/bVk9fvVwThCpYRoiXs09TtosaY4rTd+JOrfO3/tmEE/WRuiOElNIeK0kooHXZCgjRXrxTl9Ww9ps2JkdHtVTgpWOr9KouVH9YA4EiuYFPvD39kR2KLR2j4A5Xf/JkIjZffiQ5yALIjRN//EOEfOg04N7bRQZj8T/sPEQL7hdgBMSh/aCpPoRYeVWtlZJfgFLuNhQJ4z3Kf1LnRUkESGdHrtNtyUACtnS0O1ZsQEOcvd86p+8hjXLe7ZgRl/Hpb9u2Hvq2dbSksRozCNspGj2JVX9f1OVrv/KHXYtPZ8SIZfk43za2bnmaVUiYJfvGaNoNOLi5zZ8e1UihbFVLbwFVbnUdKFxK4raNBfHBFazr4t9pza9QzC6o3vj69zSCo7whYqc/adiucauv9HIpudr8PgNI2iaTzYf4A8edfgpqk5lNp3zbfRPBw=
