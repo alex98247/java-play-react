@@ -6,5 +6,5 @@ scala:
    - 2.12.2
 
 before_install:
-- npm cache clean -g
+- npm cache clean --force
 - npm install
