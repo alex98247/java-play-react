@@ -8,3 +8,8 @@ scala:
 before_install:
 - npm cache clean --force
 - npm install
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: "SHA256:yJnVhrd9Dm5N0E4K9S3PFGDIb095wW4jRvhT2RpOR+c Alex@86.12.20.172.in-addr.arpa"
