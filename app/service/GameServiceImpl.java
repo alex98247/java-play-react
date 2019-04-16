@@ -18,7 +18,11 @@ public class GameServiceImpl implements GameService {
         Game.db().delete(id);
     }
 
-    public void createUpdateGame(Game game) {
+    public void createGame(Game game) {
         game.save();
+    }
+
+    public void updateGame(Game game) {
+        game.update();
     }
 }

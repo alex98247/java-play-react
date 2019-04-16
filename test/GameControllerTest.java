@@ -7,16 +7,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-import play.libs.Json;
-import play.mvc.Controller;
 import play.mvc.Result;
 import service.GameService;
-import com.fasterxml.jackson.databind.JsonNode;
-import tools.DBGame;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doNothing;
@@ -67,7 +62,7 @@ public class GameControllerTest {
     public void test_deleteGames() {
         Game game = new Game(1, "lala", 1, new Timestamp(156780));
         doNothing().when(gameService).deleteGame(game.getId());
-        Result result = gameController.deleteGames(game.getId());
+        Result result = gameController.deleteGame(game.getId());
 
         assertEquals(OK, result.status());
     }

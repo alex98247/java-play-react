@@ -10,9 +10,9 @@ GET           /api/game                    controllers.GameController.getGames
 GET           /api/game/$id<[0-9]+>        controllers.GameController.getGameById(id: Long)
 
 +nocsrf
-POST          /api/game                    controllers.GameController.addGames
-PUT           /api/game/$id<[0-9]+>        controllers.GameController.updateGames(id: Long)
-DELETE        /api/game/$id<[0-9]+>        controllers.GameController.deleteGames(id: Long)
+POST          /api/game                    controllers.GameController.addGame
+PUT           /api/game/$id<[0-9]+>        controllers.GameController.updateGame(id: Long)
+DELETE        /api/game/$id<[0-9]+>        controllers.GameController.deleteGame(id: Long)
 
 # Serve static assets under public directory
 GET           /*file                       controllers.FrontendController.assetOrDefault(file)

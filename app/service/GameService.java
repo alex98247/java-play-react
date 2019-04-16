@@ -8,5 +8,6 @@ public interface GameService {
     Game getGameById(long id);
     List<Game> getGames();
     void deleteGame(long id);
-    void createUpdateGame(Game game);
+    void createGame(Game game);
+    void updateGame(Game game);
 }
