@@ -13,4 +13,4 @@ deploy:
   provider: heroku
   app: play-react-test
   api_key:
-    secure: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDcCHtIbWATPlWbwRlr1gxNhpO8LaotptKX1N813O28prSVtE9TfoB/xyCjFv+s32+$
+    secure: AAAAB3NzaC1yc2EAAAADAQABAAABAQCfmsc8VBVSv/J+QPSx/9BiD0epQUaHlMzYzhounOHPzX0S1JHddoJu3DMKI2mS1W/m1FBZDsUmveu9JPbiL8$
