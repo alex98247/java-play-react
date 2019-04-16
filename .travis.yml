@@ -4,3 +4,7 @@ jdk: oraclejdk8
 
 scala:
    - 2.12.2
+
+before_install:
+- npm cache clean -g
+- npm install
