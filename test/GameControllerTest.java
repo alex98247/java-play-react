@@ -1,43 +1,85 @@
+import controllers.GameController;
+import models.Game;
+import org.junit.Before;
 import org.junit.Test;
-import play.Application;
-import play.inject.guice.GuiceApplicationBuilder;
-import play.mvc.Http;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
+import play.libs.Json;
+import play.mvc.Controller;
 import play.mvc.Result;
-import play.test.WithApplication;
 import service.GameService;
+import com.fasterxml.jackson.databind.JsonNode;
+import tools.DBGame;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 import static play.mvc.Http.Status.OK;
-import static play.test.Helpers.GET;
 import static play.test.Helpers.contentAsString;
-import static play.test.Helpers.route;
 
-public class GameControllerTest extends WithApplication {
+@RunWith(MockitoJUnitRunner.class)
+public class GameControllerTest {
 
-    @Override
-    protected Application provideApplication() {
-        return new GuiceApplicationBuilder().build();
+    @Mock
+    GameService gameService;
+
+    @InjectMocks
+    GameController gameController;
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void test_app_summary_from_a_new_instance() {
-        GameService repositoryMock = mock(GameService.class);
-        Result result = new controllers.GameController().addGames();
-        assertEquals(OK, result.status());
-        //assertEquals("application/json", result.contentType().get());
-        //assertEquals(contentAsString(result), "{\"content\":\"Java Play React Seed\"}");
-    }
+    public void test_getGames() {
+        ArrayList<Game> games = new ArrayList<>();
+        Game game = new Game(1, "lala", 1, new Timestamp(156780));
+        games.add(game);
 
-    @Test
-    public void test_app_summary_from_route() {
-        Http.RequestBuilder request = new Http.RequestBuilder()
-                .method(GET)
-                .uri("/api/summary");
+        when(gameService.getGames()).thenReturn(games);
+        Result result = gameController.getGames();
 
-        Result result = route(app, request);
         assertEquals(OK, result.status());
         assertEquals("application/json", result.contentType().get());
-        assertEquals(contentAsString(result), "{\"content\":\"Java Play React Seed\"}");
     }
+
+    @Test
+    public void test_result_getGames() {
+        ArrayList<Game> games = new ArrayList<>();
+        Game game = new Game(1, "lala", 1, new Timestamp(156780));
+        games.add(game);
+
+        when(gameService.getGames()).thenReturn(games);
+        Result result = gameController.getGames();
+
+        assertEquals(contentAsString(result), "[{\"id\":1,\"name\":\"lala\",\"popularity\":1.0,\"created_at\":156780}]");
+    }
+
+    @Test
+    public void test_deleteGames() {
+        Game game = new Game(1, "lala", 1, new Timestamp(156780));
+        doNothing().when(gameService).deleteGame(game.getId());
+        Result result = gameController.deleteGames(game.getId());
+
+        assertEquals(OK, result.status());
+    }
+
+    @Test
+    public void test_getGameById() {
+        Game game = new Game(1, "lala", 1, new Timestamp(156780));
+        when(gameService.getGameById(game.getId())).thenReturn(game);
+        Result result = gameController.getGameById(game.getId());
+
+        assertEquals(OK, result.status());
+        assertEquals(contentAsString(result), "{\"id\":1,\"name\":\"lala\",\"popularity\":1.0,\"created_at\":156780}");
+    }
+
 }

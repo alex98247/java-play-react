@@ -7,10 +7,11 @@ GET           /                            controllers.FrontendController.index(
 
 # An example route (Prefix all API routes with apiPrefix defined in application.conf)
 GET           /api/game                    controllers.GameController.getGames
+GET           /api/game/$id<[0-9]+>        controllers.GameController.getGameById(id: Long)
 
 +nocsrf
 POST          /api/game                    controllers.GameController.addGames
-PUT           /api/game                    controllers.GameController.updateGames
+PUT           /api/game/$id<[0-9]+>        controllers.GameController.updateGames(id: Long)
 DELETE        /api/game/$id<[0-9]+>        controllers.GameController.deleteGames(id: Long)
 
 # Serve static assets under public directory

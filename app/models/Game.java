@@ -21,6 +21,13 @@ public class Game extends Model {
         super();
     }
 
+    public Game(long id, String name, double popularity, Timestamp created_at){ super();
+        this.id = id;
+        this.name = name;
+        this.popularity = popularity;
+        this.created_at = created_at;
+    }
+
     public static final Finder<Long, Game> find = new Finder<>(Game.class);
 
     public void setId(long id) {
@@ -31,8 +38,6 @@ public class Game extends Model {
         this.name = name;
     }
 
-
-
     public long getId() {
         return id;
     }
@@ -40,7 +45,6 @@ public class Game extends Model {
     public String getName() {
         return name;
     }
-
 
     public Timestamp getCreated_at() {
         return created_at;
