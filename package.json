@@ -1,9 +1,6 @@
 {
-  "name": "java-play-react-seed",
+  "name": "java-play-react",
   "version": "0.1.0",
-  "engines": {
-    "node": "10.3.0"
-  },
   "private": true,
   "scripts": {
     "start": "react-scripts start",
