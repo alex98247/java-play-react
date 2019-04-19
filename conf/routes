@@ -8,11 +8,16 @@ GET           /                            controllers.FrontendController.index(
 # An example route (Prefix all API routes with apiPrefix defined in application.conf)
 GET           /api/game                    controllers.GameController.getGames
 GET           /api/game/$id<[0-9]+>        controllers.GameController.getGameById(id: Long)
+GET           /api/user                    controllers.UserController.getUsers
+GET           /api/user/$id<[0-9]+>        controllers.UserController.getUserById(id:Long)
 
 +nocsrf
 POST          /api/game                    controllers.GameController.addGame
 PUT           /api/game/$id<[0-9]+>        controllers.GameController.updateGame(id: Long)
 DELETE        /api/game/$id<[0-9]+>        controllers.GameController.deleteGame(id: Long)
+POST          /api/user                    controllers.UserController.addUser
+PUT           /api/user/$id<[0-9]+>        controllers.UserController.updateUser(id: Long)
+DELETE        /api/user/$id<[0-9]+>        controllers.UserController.deleteUser(id: Long)
 
 # Serve static assets under public directory
 GET           /*file                       controllers.FrontendController.assetOrDefault(file)
