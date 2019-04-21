@@ -1,14 +1,17 @@
 package models;
 
+import io.ebean.Finder;
 import io.ebean.Model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "claims")
 public class Claim extends Model {
+    @Id
     private long id;
     private long user_id;
     private Timestamp created_at;
@@ -28,6 +31,8 @@ public class Claim extends Model {
         this.solved_at = solved_at;
         this.comment = comment;
     }
+
+    public static final Finder<Long, Claim> find = new Finder<>(Claim.class);
 
     public void setId(long id) {
         this.id = id;
