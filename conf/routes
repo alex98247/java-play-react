@@ -3,7 +3,7 @@
 # ~~~~
 
 # Serve index page from public directory
-GET     /                           controllers.FrontendController.index()
+GET           /                            controllers.FrontendController.index()
 
 # An example route (Prefix all API routes with apiPrefix defined in application.conf)
 GET     /api/summary                controllers.HomeController.appSummary
@@ -21,5 +21,10 @@ GET         /casProxyCallback                 @org.pac4j.play.CallbackController
 POST        /casProxyCallback                 @org.pac4j.play.CallbackController.callback()
 GET         /logout                           @org.pac4j.play.LogoutController.logout()
 
-# Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                     controllers.Assets.at(path="/public", file)
+GET           /api/game                    controllers.GameController.getGames
+GET           /api/game/$id<[0-9]+>        controllers.GameController.getGameById(id: Long)
+
++nocsrf
+POST          /api/game                    controllers.GameController.addGame
+PUT           /api/game/$id<[0-9]+>        controllers.GameController.updateGame(id: Long)
+DELETE        /api/game/$id<[0-9]+>        controllers.GameController.deleteGame(id: Long)

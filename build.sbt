@@ -52,10 +52,13 @@ routesGenerator := InjectedRoutesGenerator
 
 libraryDependencies += "io.ebean" % "ebean" % "11.36.1"
 libraryDependencies += "org.postgresql" % "postgresql" % "42.2.2"
+libraryDependencies += "com.konghq" % "unirest-java" % "2.1.02"
+libraryDependencies += "com.google.code.gson" % "gson" % "2.8.5"
 
 // Testing libraries for dealing with CompletionStage...
 libraryDependencies += "org.assertj" % "assertj-core" % "3.6.2" % Test
 libraryDependencies += "org.awaitility" % "awaitility" % "2.0.0" % Test
+libraryDependencies += "org.mockito" % "mockito-all" % "1.10.19" % Test
 
 libraryDependencies += "io.swagger" %% "swagger-play2" % "1.6.0"
 

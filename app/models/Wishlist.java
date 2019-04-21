@@ -1,7 +1,9 @@
 package models;
 
+import javax.persistence.Entity;
 import java.sql.Timestamp;
 
+@Entity
 public class Wishlist {
     private long id;
     private long user_id;

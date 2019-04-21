@@ -1,8 +1,14 @@
 package models;
 
+import io.ebean.Model;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 
-public class Claim {
+@Entity
+@Table(name = "claims")
+public class Claim extends Model {
     private long id;
     private long user_id;
     private Timestamp created_at;
