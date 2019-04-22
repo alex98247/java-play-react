@@ -16,7 +16,8 @@ public class DemoHttpActionAdapter extends DefaultHttpActionAdapter {
         } else if (code == HttpConstants.FORBIDDEN) {
             return forbidden("forbidden").as((HttpConstants.HTML_CONTENT_TYPE));
         } else {
-            return super.adapt(code, context);
+            String responseContent = context.getResponseContent();
+            return ok(responseContent).as("application/json");
         }
     }
 }
