@@ -1,5 +1,6 @@
 package modules;
 
+import authorization.CustomCallbackLogic;
 import be.objectify.deadbolt.java.cache.HandlerCache;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
@@ -31,6 +32,7 @@ import org.pac4j.oidc.client.OidcClient;
 import org.pac4j.oidc.config.OidcConfiguration;
 import org.pac4j.play.CallbackController;
 import org.pac4j.play.LogoutController;
+import org.pac4j.play.PlayWebContext;
 import org.pac4j.play.deadbolt2.Pac4jHandlerCache;
 import org.pac4j.play.deadbolt2.Pac4jRoleHandler;
 import org.pac4j.play.store.PlayCacheSessionStore;
@@ -44,6 +46,7 @@ import java.io.File;
 
 import org.pac4j.http.client.direct.DirectFormClient;
 import play.cache.SyncCacheApi;
+import play.mvc.Result;
 import util.Utils;
 
 public class SecurityModule extends AbstractModule {
@@ -70,11 +73,14 @@ public class SecurityModule extends AbstractModule {
         //bind(PlaySessionStore.class).toInstance(playCacheSessionStore);
         bind(PlaySessionStore.class).to(PlayCacheSessionStore.class);
 
+        final CustomCallbackLogic<Result, PlayWebContext> customCallbackLogic = new CustomCallbackLogic<>();
+
         // callback
         final CallbackController callbackController = new CallbackController();
         callbackController.setDefaultUrl("/");
         callbackController.setMultiProfile(true);
         callbackController.setRenewSession(true);
+        callbackController.setCallbackLogic(customCallbackLogic);
         bind(CallbackController.class).toInstance(callbackController);
 
         // logout
