@@ -8,8 +8,6 @@ GET           /                            controllers.FrontendController.index(
 # Serve static assets under public directory
 #GET     /*file                      controllers.FrontendController.assetOrDefault(file)
 
-GET         /oidc/index                  controllers.Application.oidcIndex
-
 GET         /callback                         @org.pac4j.play.CallbackController.callback()
 POST        /callback                         @org.pac4j.play.CallbackController.callback()
 GET         /casProxyCallback                 @org.pac4j.play.CallbackController.callback()

@@ -73,6 +73,7 @@ public class SecurityModule extends AbstractModule {
         //bind(PlaySessionStore.class).toInstance(playCacheSessionStore);
         bind(PlaySessionStore.class).to(PlayCacheSessionStore.class);
 
+        //callback logic
         final CustomCallbackLogic<Result, PlayWebContext> customCallbackLogic = new CustomCallbackLogic<>();
 
         // callback
@@ -91,69 +92,8 @@ public class SecurityModule extends AbstractModule {
     }
 
     @Provides
-    protected FacebookClient provideFacebookClient() {
-        final String fbId = configuration.getString("fbId");
-        final String fbSecret = configuration.getString("fbSecret");
-        return new FacebookClient(fbId, fbSecret);
-    }
-
-    @Provides
-    protected GitHubClient provideGitHubClient() {
-        final String fbId = configuration.getString("fbId");
-        final String fbSecret = configuration.getString("fbSecret");
-        return new GitHubClient(fbId, fbSecret);
-    }
-
-    @Provides
-    protected TwitterClient provideTwitterClient() {
-        return new TwitterClient("HVSQGAw2XmiwcKOTvZFbQ", "FSiO9G9VRR4KCuksky0kgGuo8gAVndYymr4Nl7qc8AA");
-    }
-
-    @Provides
     protected FormClient provideFormClient() {
         return new FormClient(baseUrl + "/loginForm", new SimpleTestUsernamePasswordAuthenticator());
-    }
-
-    @Provides
-    protected IndirectBasicAuthClient provideIndirectBasicAuthClient() {
-        return new IndirectBasicAuthClient(new SimpleTestUsernamePasswordAuthenticator());
-    }
-
-    @Provides
-    protected CasProxyReceptor provideCasProxyReceptor() {
-        return new CasProxyReceptor();
-    }
-
-    @Provides
-    @Inject
-    protected CasClient provideCasClient() {
-        // final CasOAuthWrapperClient casClient = new CasOAuthWrapperClient("this_is_the_key2", "this_is_the_secret2", "http://localhost:8080/cas2/oauth2.0");
-        // casClient.setName("CasClient");
-        final CasConfiguration casConfiguration = new CasConfiguration("https://casserverpac4j.herokuapp.com/login");
-        //final CasConfiguration casConfiguration = new CasConfiguration("http://localhost:8888/cas/login");
-        return new CasClient(casConfiguration);
-    }
-
-    @Provides
-    protected SAML2Client provideSaml2Client() {
-        final SAML2ClientConfiguration cfg = new SAML2ClientConfiguration("resource:samlKeystore.jks",
-                "pac4j-demo-passwd", "pac4j-demo-passwd", "resource:openidp-feide.xml");
-        cfg.setMaximumAuthenticationLifetime(3600);
-        cfg.setServiceProviderEntityId("urn:mace:saml:pac4j.org");
-        cfg.setServiceProviderMetadataPath(new File("target", "sp-metadata.xml").getAbsolutePath());
-        return new SAML2Client(cfg);
-    }
-
-    @Provides
-    protected OidcClient provideOidcClient() {
-        final OidcConfiguration oidcConfiguration = new OidcConfiguration();
-        oidcConfiguration.setClientId("343992089165-i1es0qvej18asl33mvlbeq750i3ko32k.apps.googleusercontent.com");
-        oidcConfiguration.setSecret("unXK_RSCbCXLTic2JACTiAo9");
-        oidcConfiguration.setDiscoveryURI("https://accounts.google.com/.well-known/openid-configuration");
-        oidcConfiguration.addCustomParam("prompt", "consent");
-        final OidcClient oidcClient = new OidcClient(oidcConfiguration);
-        oidcClient.addAuthorizationGenerator((ctx, profile) -> { profile.addRole("ROLE_ADMIN"); return profile; });
-        return oidcClient;
     }
 
     @Provides
@@ -166,36 +106,11 @@ public class SecurityModule extends AbstractModule {
     }
 
     @Provides
-    protected DirectFormClient provideDirectFormClient() {
-        final Authenticator<UsernamePasswordCredentials> blockingAuthenticator = (credentials, ctx) -> {
-
-            final int wait = Utils.block();
-
-            if (Utils.random(10) <= 7) {
-                CommonProfile profile = new CommonProfile();
-                profile.setId("fake" + wait);
-                credentials.setUserProfile(profile);
-            }
-        };
-        return new DirectFormClient(blockingAuthenticator);
-    }
-
-    @Provides
-    protected DirectBasicAuthClient provideDirectBasicAuthClient() {
-        return new DirectBasicAuthClient(new SimpleTestUsernamePasswordAuthenticator());
-    }
-
-    @Provides
-    protected Config provideConfig(FacebookClient facebookClient, GitHubClient gitHubClient, TwitterClient twitterClient, FormClient formClient,
-                                   IndirectBasicAuthClient indirectBasicAuthClient, CasClient casClient, SAML2Client saml2Client,
-                                   OidcClient oidcClient, ParameterClient parameterClient, DirectBasicAuthClient directBasicAuthClient,
-                                   CasProxyReceptor casProxyReceptor, DirectFormClient directFormClient) {
+    protected Config provideConfig(FormClient formClient, ParameterClient parameterClient) {
 
         //casClient.getConfiguration().setProxyReceptor(casProxyReceptor);
 
-        final Clients clients = new Clients(baseUrl + "/callback", facebookClient, gitHubClient, twitterClient, formClient,
-                indirectBasicAuthClient, casClient, saml2Client, oidcClient, parameterClient, directBasicAuthClient,
-                new AnonymousClient(), directFormClient);
+        final Clients clients = new Clients(baseUrl + "/callback", formClient, parameterClient);
 
         final Config config = new Config(clients);
         config.addAuthorizer("admin", new RequireAnyRoleAuthorizer<>("ROLE_ADMIN"));
