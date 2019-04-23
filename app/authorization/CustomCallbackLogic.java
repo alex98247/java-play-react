@@ -84,7 +84,8 @@ public class CustomCallbackLogic<R, C extends WebContext> extends DefaultCallbac
             final JwtGenerator generator = new JwtGenerator(new SecretSignatureConfiguration(SecurityModule.JWT_SALT));
             token = generator.generate(profile);
 
-            action = HttpAction.ok(context, "adfsegse");
+            action = HttpAction.ok(context, "{\"token\": \"" + token + "\"}");
+
 
         } catch (final RuntimeException e) {
             return handleException(e, httpActionAdapter, context);
