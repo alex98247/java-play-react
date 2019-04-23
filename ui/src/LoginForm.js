@@ -38,32 +38,41 @@ class LoginForm extends Component {
       },
       body: "username=" + credentials.username + "&" + "password=" + credentials.password,
       credentials: 'include'
+    }).then(async res => {
+      if(res.ok) {
+        const body = await res.text();
+        var token = JSON.parse(body);
+        credentials.token = token.token;
+      }
     });
-    const body = await response;
-    console.log(body);
-  }
+
+    this.setState({credentials});
+    setTimeout(() => window.location.href = '/' , 1 * 1000);
+    }
 
 
+render()
+{
+  const {credentials} = this.state;
 
-  render() {
-    const {credentials} = this.state;
-
-    return (
-      <Form onSubmit={this.handleSubmit}>
-        <FormGroup>
-          <Label for="username">Username</Label>
-          <Input type="text" name="username" id="username" value={credentials.username || ''} onChange={this.handleChange}/>
-        </FormGroup>
-        <FormGroup>
-          <Label for="password">Password</Label>
-          <Input type="text" name="password" id="password" value={credentials.password || ''} onChange={this.handleChange}/>
-        </FormGroup>
-        <FormGroup>
-          <Button color="primary" className="btn" type="submit">Save</Button>
-        </FormGroup>
-      </Form>
-    )
-  }
+  return (
+    <Form onSubmit={this.handleSubmit}>
+      <FormGroup>
+        <Label for="username">Username</Label>
+        <Input type="text" name="username" id="username" value={credentials.username || ''}
+               onChange={this.handleChange}/>
+      </FormGroup>
+      <FormGroup>
+        <Label for="password">Password</Label>
+        <Input type="text" name="password" id="password" value={credentials.password || ''}
+               onChange={this.handleChange}/>
+      </FormGroup>
+      <FormGroup>
+        <Button color="primary" className="btn" type="submit">Save</Button>
+      </FormGroup>
+    </Form>
+  )
+}
 }
 
 export default LoginForm;
