@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Form, FormGroup, Input, Label} from 'reactstrap';
+import bcrypt from 'bcryptjs';
 
 class LoginForm extends Component {
 
@@ -30,6 +31,9 @@ class LoginForm extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const {credentials} = this.state;
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(credentials.password, salt);
+    console.log(hash);
 
     const response = await fetch('/callback?client_name=FormClient', {
       method: 'POST',
@@ -37,12 +41,12 @@ class LoginForm extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: "username=" + credentials.username + "&" + "password=" + credentials.password,
+      body: "username=" + credentials.username + "&" + "password=" + hash,
       credentials: 'include'
     }).then(async res => {
       if (await res.ok) {
         const body = await res.text();
-        var token = JSON.parse(body);
+        const token = JSON.parse(body);
         credentials.token = token.token;
         credentials.password = "";
         credentials.status = 200;
