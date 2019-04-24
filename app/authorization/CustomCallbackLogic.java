@@ -81,14 +81,17 @@ public class CustomCallbackLogic<R, C extends WebContext> extends DefaultCallbac
             logger.debug("profile: {}", profile);
             saveUserProfile(context, config, profile, saveInSession, multiProfile, renewSession);
 
-            final JwtGenerator generator = new JwtGenerator(new SecretSignatureConfiguration(SecurityModule.JWT_SALT));
-            token = generator.generate(profile);
+            if(profile != null) {
+                final JwtGenerator generator = new JwtGenerator(new SecretSignatureConfiguration(SecurityModule.JWT_SALT));
+                token = generator.generate(profile);
+            }
 
             action = HttpAction.ok(context, "{\"token\": \"" + token + "\"}");
 
 
         } catch (final RuntimeException e) {
-            return handleException(e, httpActionAdapter, context);
+            action = HttpAction.forbidden(context);
+            return httpActionAdapter.adapt(action.getCode(), context);
         }
 
         return httpActionAdapter.adapt(action.getCode(), context);

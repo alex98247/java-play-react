@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import {Button, Form, FormGroup, Input, Label} from 'reactstrap';
+import bcrypt from 'bcryptjs';
 
 class LoginForm extends Component {
 
   credentials = {
     username: '',
     password: '',
-    token: ''
+    token: '',
+    status: 200
   };
 
   state = {credentials: this.credentials};
@@ -29,6 +31,9 @@ class LoginForm extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const {credentials} = this.state;
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(credentials.password, salt);
+    console.log(hash);
 
     const response = await fetch('/callback?client_name=FormClient', {
       method: 'POST',
@@ -36,43 +41,59 @@ class LoginForm extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: "username=" + credentials.username + "&" + "password=" + credentials.password,
+      body: "username=" + credentials.username + "&" + "password=" + hash,
       credentials: 'include'
     }).then(async res => {
-      if(res.ok) {
+      if (await res.ok) {
         const body = await res.text();
-        var token = JSON.parse(body);
+        const token = JSON.parse(body);
         credentials.token = token.token;
+        credentials.password = "";
+        credentials.status = 200;
+        this.setState({credentials});
+        setTimeout(() => window.location.href = '/', 1 * 1000);
+      } else {
+        credentials.status = 403;
+        this.setState({credentials});
       }
     });
 
-    this.setState({credentials});
-    setTimeout(() => window.location.href = '/' , 1 * 1000);
-    }
+  }
 
 
-render()
-{
-  const {credentials} = this.state;
+  render() {
+    const {credentials} = this.state;
 
-  return (
-    <Form onSubmit={this.handleSubmit}>
-      <FormGroup>
-        <Label for="username">Username</Label>
-        <Input type="text" name="username" id="username" value={credentials.username || ''}
-               onChange={this.handleChange}/>
-      </FormGroup>
-      <FormGroup>
-        <Label for="password">Password</Label>
-        <Input type="text" name="password" id="password" value={credentials.password || ''}
-               onChange={this.handleChange}/>
-      </FormGroup>
-      <FormGroup>
-        <Button color="primary" className="btn" type="submit">Save</Button>
-      </FormGroup>
-    </Form>
-  )
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        <FormGroup>
+          <Label for="username">Username</Label>
+          <Input type="text" name="username" id="username" value={credentials.username || ''}
+                 onChange={this.handleChange}/>
+        </FormGroup>
+        <FormGroup>
+          <Label for="password">Password</Label>
+          <Input type="text" name="password" id="password" value={credentials.password || ''}
+                 onChange={this.handleChange}/>
+        </FormGroup>
+        <FormGroup>
+          <Button color="primary" className="btn" type="submit">Войти</Button>
+        </FormGroup>
+        {(credentials.status == 200) ? null : <ErrorMessage />}
+      </Form>
+
+    )
+  }
 }
-}
+
+class ErrorMessage extends Component {
+  render() {
+    return (
+      <div className="alert alert-danger" role="alert">
+        <strong>Bad credentials</strong>
+      </div>
+    );
+  }
+};
 
 export default LoginForm;
