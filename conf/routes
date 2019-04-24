@@ -21,3 +21,9 @@ GET           /api/game/$id<[0-9]+>        controllers.GameController.getGameByI
 POST          /api/game                    controllers.GameController.addGame
 PUT           /api/game/$id<[0-9]+>        controllers.GameController.updateGame(id: Long)
 DELETE        /api/game/$id<[0-9]+>        controllers.GameController.deleteGame(id: Long)
+
+# Serve static assets under public directory
+GET           /swagger.json           controllers.ApiHelpController.getResources
+GET           /docs/                       controllers.Assets.at(path="/public/swagger",file="index.html")
+GET           /docs/*file                  controllers.Assets.at(path="/public/swagger",file)
+GET           /*file                       controllers.FrontendController.assetOrDefault(file)
