@@ -60,7 +60,8 @@ libraryDependencies += "org.assertj" % "assertj-core" % "3.6.2" % Test
 libraryDependencies += "org.awaitility" % "awaitility" % "2.0.0" % Test
 libraryDependencies += "org.mockito" % "mockito-all" % "1.10.19" % Test
 
-libraryDependencies += "io.swagger" %% "swagger-play2" % "1.6.0"
+libraryDependencies += "io.swagger" %% "swagger-play2" % "1.6.1"
+libraryDependencies += "io.swagger" %% "swagger-scala-module" % "1.0.3"
 
 // Make verbose tests
 testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
