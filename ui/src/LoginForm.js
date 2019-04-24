@@ -35,7 +35,7 @@ class LoginForm extends Component {
     const hash = bcrypt.hashSync(credentials.password, salt);
     console.log(hash);
 
-    const response = await fetch('/callback?client_name=FormClient', {
+    await fetch('/callback?client_name=FormClient', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -43,21 +43,23 @@ class LoginForm extends Component {
       },
       body: "username=" + credentials.username + "&" + "password=" + hash,
       credentials: 'include'
-    }).then(async res => {
-      if (await res.ok) {
-        const body = await res.text();
-        const token = JSON.parse(body);
-        credentials.token = token.token;
-        credentials.password = "";
-        credentials.status = 200;
-        this.setState({credentials});
-        setTimeout(() => window.location.href = '/', 1 * 1000);
-      } else {
-        credentials.status = 403;
-        this.setState({credentials});
-      }
-    });
+    }).then(res => this.resultAction(res, credentials));
 
+  }
+
+  async resultAction(res, credentials){
+    if (await res.ok) {
+      const body = await res.text();
+      const token = JSON.parse(body);
+      credentials.token = token.token;
+      credentials.password = "";
+      credentials.status = 200;
+      this.setState({credentials});
+      setTimeout(() => window.location.href = '/', 1 * 1000);
+    } else {
+      credentials.status = 403;
+      this.setState({credentials});
+    }
   }
 
 
