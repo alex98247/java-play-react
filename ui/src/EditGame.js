@@ -21,11 +21,8 @@ class EditGame extends Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    const {companies} = this.state;
     let game = {...this.state.game};
-    if(name == "company")
-      game[name] = companies.find(company => company.id == value);
-    else game[name] = value;
+    game[name] = value;
     this.setState({game});
   }
 
@@ -42,8 +39,6 @@ class EditGame extends Component {
       body: JSON.stringify(game),
       credentials: 'include'
     });
-    const body = await response.json();
-    console.log(body);
   }
 
 

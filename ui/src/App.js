@@ -4,6 +4,8 @@ import './App.css';
 import GameList from "./GameList";
 import EditGame from "./EditGame";
 import LoginForm from "./LoginForm";
+import ClaimForm from "./ClaimForm";
+import AdminPanel from "./AdminPanel";
 
 class App extends Component {
 
@@ -14,6 +16,8 @@ class App extends Component {
           <Route path='/' exact={true} component={GameList}/>
           <Route path='/games' component={EditGame}/>
           <Route path='/login' component={LoginForm}/>
+          <Route path='/claim' component={ClaimForm}/>
+          <Route path='/admin' component={AdminPanel}/>
         </Switch>
       </Router>
     );
