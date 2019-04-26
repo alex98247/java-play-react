@@ -9,10 +9,12 @@ import {Redirect} from "react-router-dom";
 class LoginForm extends Component {
 
   credentials = {
+    id: '',
     username: '',
     password: '',
     token: '',
-    status: 200
+    status: 200,
+    role: ''
   };
 
   state = {credentials: this.credentials, loggedIn: false};

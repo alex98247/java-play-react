@@ -1,23 +1,19 @@
 const initialState = {
   credentials: {
+    id: '',
     username: '',
     password: '',
     token: '',
-    status: 200
+    status: 200,
+    role: ''
   }
 }
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case "ADD_CREDENTIALS":
-      console.log(action.credentials);
       return {
-        credentials: {
-          username: action.credentials.username,
-          password: action.credentials.password,
-          token: action.credentials.token,
-          status: action.credentials.status
-        }
+        credentials: action.credentials
       }
     default:
       return state;
