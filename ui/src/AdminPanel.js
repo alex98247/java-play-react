@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Menu from "./Menu";
 import * as actions from "./actions"
 import {connect} from "react-redux";
-import {Button} from "reactstrap/src";
+import {Button} from "reactstrap";
 
 class AdminPanel extends Component {
 
