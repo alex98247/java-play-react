@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import {Button, Form, FormGroup, Input, Label} from 'reactstrap';
 import bcrypt from 'bcryptjs';
+import "./actions.js"
+import {connect} from "react-redux";
+import * as actions from "./actions";
+import {Redirect} from "react-router-dom";
 
 class LoginForm extends Component {
 
@@ -11,10 +15,10 @@ class LoginForm extends Component {
     status: 200
   };
 
-  state = {credentials: this.credentials};
+  state = {credentials: this.credentials, loggedIn: false};
 
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -33,7 +37,6 @@ class LoginForm extends Component {
     const {credentials} = this.state;
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(credentials.password, salt);
-    console.log(hash);
 
     await fetch('/callback?client_name=FormClient', {
       method: 'POST',
@@ -47,15 +50,15 @@ class LoginForm extends Component {
 
   }
 
-  async resultAction(res, credentials){
+  async resultAction(res, credentials) {
     if (await res.ok) {
       const body = await res.text();
       const token = JSON.parse(body);
       credentials.token = token.token;
       credentials.password = "";
       credentials.status = 200;
-      this.setState({credentials});
-      setTimeout(() => window.location.href = '/', 1 * 1000);
+      this.props.addCredentials(credentials);
+      setTimeout(() => this.setState({credentials: credentials, loggedIn: true}), 1 * 1000);
     } else {
       credentials.status = 403;
       this.setState({credentials});
@@ -64,10 +67,11 @@ class LoginForm extends Component {
 
 
   render() {
-    const {credentials} = this.state;
+    const {credentials, loggedIn} = this.state;
 
     return (
       <Form onSubmit={this.handleSubmit}>
+        {(loggedIn)? <Redirect to='/' /> : null}
         <FormGroup>
           <Label for="username">Username</Label>
           <Input type="text" name="username" id="username" value={credentials.username || ''}
@@ -81,7 +85,7 @@ class LoginForm extends Component {
         <FormGroup>
           <Button color="primary" className="btn" type="submit">Войти</Button>
         </FormGroup>
-        {(credentials.status == 200) ? null : <ErrorMessage />}
+        {(credentials.status == 200) ? null : <ErrorMessage/>}
       </Form>
 
     )
@@ -98,4 +102,10 @@ class ErrorMessage extends Component {
   }
 };
 
-export default LoginForm;
+function mapStateToProps(state) {
+  return {
+    credentials: state.credentials
+  };
+}
+
+export default connect(mapStateToProps, actions)(LoginForm);

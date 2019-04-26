@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Menu from "./Menu";
+import * as actions from "./actions"
+import {connect} from "react-redux";
 
 class GameList extends Component {
 
@@ -31,7 +33,7 @@ class GameList extends Component {
 
     return (
       <div>
-        <Menu/>
+        <Menu {...this.props}/>
         <table style={{marginBottom: 0}} className="table table-dark">
           <thead>
           <tr>
@@ -49,6 +51,12 @@ class GameList extends Component {
       </div>
     );
   }
+};
+
+function mapStateToProps(state) {
+  return {
+    credentials: state.credentials
+  };
 }
 
-export default GameList;
+export default connect(mapStateToProps, actions)(GameList);
