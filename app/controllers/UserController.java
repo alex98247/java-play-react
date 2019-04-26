@@ -35,7 +35,7 @@ public class UserController extends Controller{
     }
 
     public Result getUsers() {
-        List<User> users = userService.getUser();
+        List<User> users = userService.getUsers();
         JsonNode jsonNode = Json.toJson(users);
         return ok(jsonNode).as("application/json");
     }

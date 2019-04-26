@@ -1,6 +1,6 @@
 package models;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import javax.persistence.*;
 
 import io.ebean.*;

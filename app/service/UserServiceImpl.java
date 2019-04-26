@@ -4,12 +4,12 @@ import models.User;
 
 import java.util.List;
 
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     public User getUserById(long id) {
         return null;
     }
 
-    public List<User> getUser() {
+    public List<User> getUsers() {
         return User.find.all();
     }
 
