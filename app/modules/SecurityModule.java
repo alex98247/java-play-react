@@ -1,5 +1,6 @@
 package modules;
 
+import authorization.Authentificator;
 import authorization.CustomCallbackLogic;
 import be.objectify.deadbolt.java.cache.HandlerCache;
 import com.google.inject.AbstractModule;
@@ -93,7 +94,7 @@ public class SecurityModule extends AbstractModule {
 
     @Provides
     protected FormClient provideFormClient() {
-        return new FormClient(baseUrl + "/loginForm", new SimpleTestUsernamePasswordAuthenticator());
+        return new FormClient(baseUrl + "/loginForm", new Authentificator());
     }
 
     @Provides

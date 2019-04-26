@@ -4,6 +4,10 @@ import {Link} from 'react-router-dom';
 
 class Menu extends Component {
 
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -16,6 +20,7 @@ class Menu extends Component {
             <Button tag={Link} to={"/company"} className="btn btn-success" style={{marginLeft: 10}}>Add Company</Button>
           </div>
         </div>
+        <a className="navbar-brand" style={{marginLeft: 10}} href="#">{this.props.credentials.username}</a>
       </nav>
     );
   }

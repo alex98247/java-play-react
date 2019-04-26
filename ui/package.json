@@ -18,7 +18,11 @@
     "react-dom": "^16.7.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.2",
-    "reactstrap": "6.5.0"
+    "reactstrap": "6.5.0",
+    "immutable": "^3.8.2",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-persist": "^5.10.0"
   },
   "devDependencies": {
     "ncp": "^2.0.0",
