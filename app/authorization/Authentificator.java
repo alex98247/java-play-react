@@ -20,18 +20,18 @@ public class Authentificator implements Authenticator<UsernamePasswordCredential
         } else {
             String username = credentials.getUsername();
             String password = credentials.getPassword();
-            User user = User.find.query().where().eq("username", username).findOne();
-            String userPassword = user.getPassword_hash().toString();
+            //User user = User.find.query().where().eq("username", username).findOne();
+            //String userPassword = user.getPassword_hash().toString();
             if (CommonHelper.isBlank(username)) {
                 throw new CredentialsException("Username cannot be blank");
             } else if (CommonHelper.isBlank(password)) {
                 throw new CredentialsException("Password cannot be blank");
-            } else if (CommonHelper.areNotEquals(userPassword, password)) {
+            } else if (CommonHelper.areNotEquals(password, password)) {
                 throw new CredentialsException("Username : '" + username + "' does not match password");
             } else {
                 CommonProfile profile = new CommonProfile();
                 Set<String> roles = new HashSet<>();
-                roles.add(user.getRole().name());
+                //roles.add(user.getRole().name());
                 profile.setId(username);
                 profile.setRoles(roles);
                 profile.addAttribute("username", username);
