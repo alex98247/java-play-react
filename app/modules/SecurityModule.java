@@ -87,7 +87,7 @@ public class SecurityModule extends AbstractModule {
 
         // logout
         final LogoutController logoutController = new LogoutController();
-        logoutController.setDefaultUrl("/?defaulturlafterlogout");
+        logoutController.setDefaultUrl("/");
         //logoutController.setDestroySession(true);
         bind(LogoutController.class).toInstance(logoutController);
     }
@@ -116,7 +116,6 @@ public class SecurityModule extends AbstractModule {
         final Config config = new Config(clients);
         config.addAuthorizer("admin", new RequireAnyRoleAuthorizer<>("ROLE_ADMIN"));
         config.addAuthorizer("custom", new CustomAuthorizer());
-        config.addMatcher("excludedPath", new PathMatcher().excludeRegex("^/facebook/notprotected\\.html$"));
         config.setHttpActionAdapter(new DemoHttpActionAdapter());
         return config;
     }

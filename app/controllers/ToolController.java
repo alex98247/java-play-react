@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.AdminParams;
 import models.Game;
+import org.pac4j.play.java.Secure;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -21,6 +22,7 @@ public class ToolController extends Controller {
     @Inject
     GameService gameService;
 
+    @Secure(clients = "ParameterClient", authorizers = "admin")
     public Result addGameToDb() {
         JsonNode json = request().body().asJson();
         AdminParams game = Json.fromJson(json, AdminParams.class);
