@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
+import AddGames from "./AddGames";
 
 class Menu extends Component {
 
@@ -39,10 +40,24 @@ class UserButtons extends Component {
     return (
       <div align="right">
         <Button tag={Link} to={"/claim"} className="btn btn-success" style={{marginLeft: 10}}>Add Claim</Button>
-        {(credentials.role == 'ADMIN') ?
-          <Button tag={Link} to={"/admin"} className="btn btn-success" style={{marginLeft: 10}}>Admin
-            Panel</Button> : null}
+        {(credentials.role == 'ADMIN')? <AdminButtons {this.props} /> : null}
         <a className="navbar-brand" style={{marginLeft: 10}} href="#">{credentials.username}</a>
+      </div>
+    );
+  }
+}
+
+class AdminButtons extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div>
+        <Button tag={Link} to={"/admin"} className="btn btn-success" style={{marginLeft: 10}}>Admin Panel</Button>
+        <AddGames/>
       </div>
     );
   }
