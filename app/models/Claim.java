@@ -18,6 +18,7 @@ public class Claim extends Model {
     private boolean solved;
     private Timestamp solved_at;
     private String comment;
+    private String theme;
 
     public Claim() {
         super();
@@ -80,5 +81,13 @@ public class Claim extends Model {
 
     public String getComment() {
         return comment;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
     }
 }

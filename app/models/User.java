@@ -3,6 +3,7 @@ package models;
 import java.sql.Timestamp;
 import javax.persistence.*;
 
+import authorization.Roles;
 import io.ebean.*;
 
 @Table(name = "users")
@@ -14,17 +15,20 @@ public class User extends Model {
     private Integer password_hash;
     private Timestamp created_at;
     private boolean is_deleted;
+    @Enumerated(EnumType.STRING)
+    private Roles role;
 
     public User() {
         super();
     }
 
-    public User(long id, String login, Integer password_hash, Timestamp created_at, boolean is_deleted) {
+    public User(long id, String login, Integer password_hash, Timestamp created_at, boolean is_deleted, Roles role) {
         this.id = id;
         this.login = login;
         this.password_hash = password_hash;
         this.created_at = created_at;
         this.is_deleted = is_deleted;
+        this.role = role;
     }
 
     public static final Finder<Long, User> find = new Finder<>(User.class);
@@ -67,5 +71,13 @@ public class User extends Model {
 
     public boolean isIs_deleted() {
         return is_deleted;
+    }
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
     }
 }
