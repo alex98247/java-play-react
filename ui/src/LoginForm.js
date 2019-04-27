@@ -14,7 +14,7 @@ class LoginForm extends Component {
     password: '',
     token: '',
     status: 200,
-    role: ''
+    roles: []
   };
 
   state = {credentials: this.credentials, loggedIn: false};
@@ -55,10 +55,12 @@ class LoginForm extends Component {
   async resultAction(res, credentials) {
     if (await res.ok) {
       const body = await res.text();
+      console.log(body);
       const token = JSON.parse(body);
       credentials.token = token.token;
       credentials.password = "";
       credentials.status = 200;
+      credentials.roles = token.roles;
       this.props.addCredentials(credentials);
       setTimeout(() => this.setState({credentials: credentials, loggedIn: true}), 1 * 1000);
     } else {
@@ -81,7 +83,7 @@ class LoginForm extends Component {
         </FormGroup>
         <FormGroup>
           <Label for="password">Password</Label>
-          <Input type="text" name="password" id="password" value={credentials.password || ''}
+          <Input type="password" name="password" id="password" value={credentials.password || ''}
                  onChange={this.handleChange}/>
         </FormGroup>
         <FormGroup>

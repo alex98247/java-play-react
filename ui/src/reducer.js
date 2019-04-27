@@ -5,7 +5,7 @@ const initialState = {
     password: '',
     token: '',
     status: 200,
-    role: ''
+    roles: []
   }
 }
 

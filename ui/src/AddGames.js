@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Form, FormGroup, Input, Label} from 'reactstrap';
+import {Button, Form, FormGroup, Input, Label, Row} from 'reactstrap';
 
 class AddGames extends Component {
 
@@ -7,7 +7,7 @@ class AddGames extends Component {
     gamesCount: ''
   };
 
-  state = {game: this.emptyGame};
+  state = {adminParams: this.adminParams};
 
   constructor(props) {
     super(props);
@@ -28,7 +28,7 @@ class AddGames extends Component {
     event.preventDefault();
     const {adminParams} = this.state;
 
-    await fetch('api/adminparams  ', {
+    await fetch('api/addgames', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -40,19 +40,14 @@ class AddGames extends Component {
   }
 
 
-
   render() {
     const {adminParams} = this.state;
 
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <FormGroup>
-          <Label for="name">Count</Label>
-          <Input type="text" name="name" id="name" value={adminParams.adminParams || ''} onChange={this.handleChange}/>
-        </FormGroup>
-        <FormGroup>
-          <Button color="primary" className="btn" type="submit">Add Games</Button>
-        </FormGroup>
+      <Form style={{marginLeft: 10}} onSubmit={this.handleSubmit}>
+        <input type="text" name="gamesCount" id="gamesCount" value={adminParams.gamesCount || ''}
+               onChange={this.handleChange}/>
+        <Button style={{marginLeft: 10}} color="primary" className="btn" type="submit">Add Games</Button>
       </Form>
     )
   }
