@@ -24,13 +24,14 @@ public class Claim extends Model {
         super();
     }
 
-    public Claim(long id, long user_id, Timestamp created_at, boolean solved, Timestamp solved_at, String comment) {
+    public Claim(long id, long user_id, Timestamp created_at, boolean solved, Timestamp solved_at, String comment, String theme) {
         this.id = id;
         this.user_id = user_id;
         this.created_at = created_at;
         this.solved = solved;
         this.solved_at = solved_at;
         this.comment = comment;
+        this.theme = theme;
     }
 
     public static final Finder<Long, Claim> find = new Finder<>(Claim.class);

@@ -36,7 +36,7 @@ public class ClaimControllerTest {
     @Test
     public void test_getClaims() {
         ArrayList<Claim> claims = new ArrayList<>();
-        Claim claim = new Claim(1, 1, new Timestamp(156780), true, new Timestamp(158780), "Easily");
+        Claim claim = new Claim(1, 1, new Timestamp(156780), true, new Timestamp(158780), "Easily", "Pavel");
         claims.add(claim);
 
         when(claimService.getClaims()).thenReturn(claims);
@@ -49,18 +49,18 @@ public class ClaimControllerTest {
     @Test
     public void test_result_getClaims() {
         ArrayList<Claim> claims = new ArrayList<>();
-        Claim claim = new Claim(1, 1, new Timestamp(156780), true, new Timestamp(158780), "Easily");
+        Claim claim = new Claim(1, 1, new Timestamp(156780), true, new Timestamp(158780), "Easily", "Pavel");
         claims.add(claim);
 
         when(claimService.getClaims()).thenReturn(claims);
         Result result = claimController.getClaims();
 
-        assertEquals(contentAsString(result), "[{\"id\":1,\"user_id\":1,\"created_at\":156780,\"solved\":true,\"created_at\":157780,\"comment\":\"Easily\"}]");
+        assertEquals(contentAsString(result), "[{\"id\":1,\"user_id\":1,\"created_at\":156780,\"solved\":true,\"solved_at\":158780,\"comment\":\"Easily\",\"theme\":\"Pavel\"}]");
     }
 
     @Test
     public void test_deleteClaims() {
-        Claim claim = new Claim(1, 1, new Timestamp(156780), true, new Timestamp(158780), "Easily");
+        Claim claim = new Claim(1, 1, new Timestamp(156780), true, new Timestamp(158780), "Easily", "Pavel");
         doNothing().when(claimService).deleteClaim(claim.getId());
         Result result = claimController.deleteClaim(claim.getId());
 
@@ -69,12 +69,12 @@ public class ClaimControllerTest {
 
     @Test
     public void test_getClaimById() {
-        Claim claim = new Claim(1, 1, new Timestamp(156780), true, new Timestamp(158780), "Easily");
+        Claim claim = new Claim(1, 1, new Timestamp(156780), true, new Timestamp(158780), "Easily", "Pavel");
         when(claimService.getClaimById(claim.getId())).thenReturn(claim);
         Result result = claimController.getClaimById(claim.getId());
 
         assertEquals(OK, result.status());
-        assertEquals(contentAsString(result), "[{\"id\":1,\"user_id\":1,\"created_at\":156780,\"solved\":true,\"created_at\":157780,\"comment\":\"Easily\"}]");
+        assertEquals(contentAsString(result), "{\"id\":1,\"user_id\":1,\"created_at\":156780,\"solved\":true,\"solved_at\":158780,\"comment\":\"Easily\",\"theme\":\"Pavel\"}");
 
     }
 

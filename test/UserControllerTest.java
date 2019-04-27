@@ -1,3 +1,4 @@
+import authorization.Roles;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +38,7 @@ public class UserControllerTest {
     @Test
     public void test_getUser() {
         ArrayList<User> users = new ArrayList<>();
-        User user = new User(1,"Chesnok",1, new Timestamp(156780),false);
+        User user = new User(1,"Chesnok",1, new Timestamp(156780),false, Roles.ADMIN);
         users.add(user);
 
         when(userService.getUsers()).thenReturn(users);
@@ -50,18 +51,18 @@ public class UserControllerTest {
     @Test
     public void test_result_getUsers() {
         ArrayList<User> users = new ArrayList<>();
-        User user = new User(1,"Chesnok",1, new Timestamp(156780),false);
+        User user = new User(1,"Chesnok",1, new Timestamp(156780),false, Roles.ADMIN);
         users.add(user);
 
         when(userService.getUsers()).thenReturn(users);
         Result result = userController.getUsers();
 
-        assertEquals(contentAsString(result), "[{\"id\":1,\"login\":\"Chesnok\",\"password_hash\":1,\"created_at\":156780,\"is_deleted\":false}]");
+        assertEquals(contentAsString(result), "[{\"id\":1,\"login\":\"Chesnok\",\"password_hash\":1,\"created_at\":156780,\"is_deleted\":false,\"role\":\"ADMIN\"}]");
     }
 
     @Test
     public void test_deleteUsers() {
-        User user = new User(1,"Chesnok",1, new Timestamp(156780),false);
+        User user = new User(1,"Chesnok",1, new Timestamp(156780),false, Roles.ADMIN);
         doNothing().when(userService).deleteUser(user.getId());
         Result result = userController.deleteUser(user.getId());
 
@@ -70,11 +71,11 @@ public class UserControllerTest {
 
     @Test
     public void test_getUserById() {
-        User user = new User(1,"Chesnok",1, new Timestamp(156780),false);
+        User user = new User(1,"Chesnok",1, new Timestamp(156780),false, Roles.ADMIN);
         when(userService.getUserById(user.getId())).thenReturn(user);
         Result result = userController.getUserById(user.getId());
 
         assertEquals(OK, result.status());
-        assertEquals(contentAsString(result), "{\"id\":1,\"login\":\"Chesnok\",\"password_hash\":1,\"created_at\":156780,\"is_deleted\":false}");
+        assertEquals(contentAsString(result), "{\"id\":1,\"login\":\"Chesnok\",\"password_hash\":1,\"created_at\":156780,\"is_deleted\":false,\"role\":\"ADMIN\"}");
     }
 }
