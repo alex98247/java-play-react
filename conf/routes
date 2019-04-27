@@ -10,6 +10,8 @@ GET           /api/game                    controllers.GameController.getGames
 GET           /api/game/$id<[0-9]+>        controllers.GameController.getGameById(id: Long)
 GET           /api/user                    controllers.UserController.getUsers
 GET           /api/user/$id<[0-9]+>        controllers.UserController.getUserById(id:Long)
+GET           /api/claim                   controllers.ClaimController.getClaims
+GET           /api/claim/$id<[0-9]+>       controllers.ClaimController.getClaimById(id:Long)
 
 +nocsrf
 POST          /api/game                    controllers.GameController.addGame
@@ -18,6 +20,9 @@ DELETE        /api/game/$id<[0-9]+>        controllers.GameController.deleteGame
 POST          /api/user                    controllers.UserController.addUser
 PUT           /api/user/$id<[0-9]+>        controllers.UserController.updateUser(id: Long)
 DELETE        /api/user/$id<[0-9]+>        controllers.UserController.deleteUser(id: Long)
+POST          /api/claim                   controllers.ClaimController.addClaim
+PUT           /api/claim/$id<[0-9]+>       controllers.ClaimController.updateClaim(id: Long)
+DELETE        /api/claim/$id<[0-9]+>       controllers.ClaimController.deleteClaim(id: Long)
 
 # Serve static assets under public directory
 GET           /*file                       controllers.FrontendController.assetOrDefault(file)
