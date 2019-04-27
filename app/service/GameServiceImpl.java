@@ -25,4 +25,8 @@ public class GameServiceImpl implements GameService {
     public void updateGame(Game game) {
         game.update();
     }
+
+    public void createGames(List<Game> games) {
+        games.stream().forEach(e -> e.save());
+    }
 }

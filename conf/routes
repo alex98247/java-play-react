@@ -8,16 +8,18 @@ GET           /                            controllers.FrontendController.index(
 # Serve static assets under public directory
 #GET     /*file                      controllers.FrontendController.assetOrDefault(file)
 
-GET         /callback                         @org.pac4j.play.CallbackController.callback()
-POST        /callback                         @org.pac4j.play.CallbackController.callback()
-GET         /casProxyCallback                 @org.pac4j.play.CallbackController.callback()
-POST        /casProxyCallback                 @org.pac4j.play.CallbackController.callback()
-GET         /logout                           @org.pac4j.play.LogoutController.logout()
+GET           /callback                    @org.pac4j.play.CallbackController.callback()
+POST          /callback                    @org.pac4j.play.CallbackController.callback()
+GET           /casProxyCallback            @org.pac4j.play.CallbackController.callback()
+POST          /casProxyCallback            @org.pac4j.play.CallbackController.callback()
+GET           /logout                      @org.pac4j.play.LogoutController.logout()
 
 GET           /api/game                    controllers.GameController.getGames
 GET           /api/game/$id<[0-9]+>        controllers.GameController.getGameById(id: Long)
 
 +nocsrf
 POST          /api/game                    controllers.GameController.addGame
++nocsrf
+POST          /api/adminparams             controllers.ToolController.addGameToDb
 PUT           /api/game/$id<[0-9]+>        controllers.GameController.updateGame(id: Long)
 DELETE        /api/game/$id<[0-9]+>        controllers.GameController.deleteGame(id: Long)

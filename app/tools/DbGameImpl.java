@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class DBGame {
+public class DbGameImpl implements DbGame {
 
     public List<Game> getGames(int count) {
         int quotient = count / 50;
@@ -38,7 +38,7 @@ public class DBGame {
         HttpResponse<JsonNode> jsonResponse = Unirest.post("https://api-v3.igdb.com/games")
                 .header("user-key", "d0fc4e5aa35986706d0b32bb67d615a7")
                 .header("Accept", "application/json")
-                .body("fields id,name,popularity,created_at; limit " + count + "; where created_at > " + timestamp.getTime() + ";")
+                .body("fields name,popularity,created_at; limit " + count + "; where created_at > " + timestamp.getTime() + ";")
                 .asJson();
 
         Gson googleJson = new GsonBuilder()
