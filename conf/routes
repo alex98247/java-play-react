@@ -20,6 +20,6 @@ GET           /api/game/$id<[0-9]+>        controllers.GameController.getGameByI
 +nocsrf
 POST          /api/game                    controllers.GameController.addGame
 +nocsrf
-POST          /api/adminparams             controllers.ToolController.addGameToDb
+POST          /api/addgames             controllers.ToolController.addGameToDb
 PUT           /api/game/$id<[0-9]+>        controllers.GameController.updateGame(id: Long)
 DELETE        /api/game/$id<[0-9]+>        controllers.GameController.deleteGame(id: Long)
