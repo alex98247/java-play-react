@@ -1,5 +1,6 @@
 package service;
 
+import io.ebean.Model;
 import models.Game;
 
 import java.util.List;
@@ -27,6 +28,6 @@ public class GameServiceImpl implements GameService {
     }
 
     public void createGames(List<Game> games) {
-        games.stream().forEach(e -> e.save());
+        games.forEach(Model::save);
     }
 }

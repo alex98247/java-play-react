@@ -28,7 +28,7 @@ class AddGames extends Component {
     event.preventDefault();
     const {adminParams} = this.state;
 
-    await fetch('api/addgames', {
+    await fetch('api/addgames?token='+this.props.credentials.token, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DbGameImpl implements DbGame {
 
@@ -49,6 +50,7 @@ public class DbGameImpl implements DbGame {
         }.getType();
         String jsonBody = jsonResponse.getBody().toString();
         ArrayList<Game> games = googleJson.fromJson(jsonBody, typeToken);
-        return games;
+        games.stream().forEach(x -> x.setId(0));
+        return games.stream().map(x-> new Game(0, x.getName(), x.getPopularity(), x.getCreated_at())).collect(Collectors.toList());
     }
 }

@@ -2,6 +2,7 @@ package modules;
 
 import authorization.Authentificator;
 import authorization.CustomCallbackLogic;
+import authorization.Roles;
 import be.objectify.deadbolt.java.cache.HandlerCache;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
@@ -102,7 +103,7 @@ public class SecurityModule extends AbstractModule {
         final ParameterClient parameterClient = new ParameterClient("token",
                 new JwtAuthenticator(new SecretSignatureConfiguration(JWT_SALT)));
         parameterClient.setSupportGetRequest(true);
-        parameterClient.setSupportPostRequest(false);
+        parameterClient.setSupportPostRequest(true);
         return parameterClient;
     }
 
@@ -114,7 +115,7 @@ public class SecurityModule extends AbstractModule {
         final Clients clients = new Clients(baseUrl + "/callback", formClient, parameterClient);
 
         final Config config = new Config(clients);
-        config.addAuthorizer("admin", new RequireAnyRoleAuthorizer<>("ROLE_ADMIN"));
+        config.addAuthorizer("admin", new RequireAnyRoleAuthorizer<>(Roles.ADMIN.name()));
         config.addAuthorizer("custom", new CustomAuthorizer());
         config.setHttpActionAdapter(new DemoHttpActionAdapter());
         return config;
