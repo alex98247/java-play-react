@@ -35,3 +35,6 @@ DELETE        /api/claim/$id<[0-9]+>       controllers.ClaimController.deleteCla
 # Serve static assets under public directory
 GET           /*file                       controllers.FrontendController.assetOrDefault(file)
 
+# Serve static assets under public directory
+GET           /swagger.json                controllers.ApiHelpController.getResources
+GET           /docs/                       controllers.Assets.at(path="/public/swagger",file="index.html")
