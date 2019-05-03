@@ -1,6 +1,8 @@
 package controllers;
 
+import ch.qos.logback.core.status.ErrorStatus;
 import com.fasterxml.jackson.databind.JsonNode;
+import io.swagger.annotations.*;
 import models.User;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -10,11 +12,13 @@ import service.UserService;
 import javax.inject.Inject;
 import java.util.List;
 
+@Api(value = "User Controller", produces = "application/json")
 public class UserController extends Controller{
 
     @Inject
     private UserService userService;
 
+    @ApiOperation(value = "Add User", notes = "Add new user from json")
     public Result addUser() {
         JsonNode json = request().body().asJson();
         User user = Json.fromJson(json, User.class);
@@ -22,25 +26,40 @@ public class UserController extends Controller{
         return ok();
     }
 
-    public Result deleteUser(long id) {
+
+    @ApiOperation(value = "Delete User", notes = "Delete the user by Id")
+    @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorStatus.class)
+    public Result deleteUser(@ApiParam(value = "User Id", name = "id") long id) {
         userService.deleteUser(id);
         return ok();
     }
 
-    public Result updateUser(long id) {
+    @ApiOperation(value = "Update User", notes = "Update user from json dy id")
+    @ApiResponses({
+            @ApiResponse(code = 404, message = "User Not Found", response = ErrorStatus.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorStatus.class) })
+    public Result updateUser(@ApiParam(value = "User Id", name = "id") long id) {
         JsonNode json = request().body().asJson();
         User user = Json.fromJson(json, User.class);
         userService.updateUser(user);
         return ok();
     }
 
+    @ApiOperation(value = "Get All Users", notes = "Get list of users", response = JsonNode.class)
+    @ApiResponses({
+            @ApiResponse(code = 404, message = "Users Not Found", response = ErrorStatus.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorStatus.class) })
     public Result getUsers() {
         List<User> users = userService.getUsers();
         JsonNode jsonNode = Json.toJson(users);
         return ok(jsonNode).as("application/json");
     }
 
-    public Result getUserById(long id) {
+    @ApiOperation(value = "Get User By Id", notes = "Get the user by it's Id", response = JsonNode.class)
+    @ApiResponses({
+            @ApiResponse(code = 404, message = "User Not Found", response = ErrorStatus.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorStatus.class) })
+    public Result getUserById(@ApiParam(value = "Game Id", name = "id") long id) {
         User user = userService.getUserById(id);
         JsonNode jsonNode = Json.toJson(user);
         return ok(jsonNode).as("application/json");
