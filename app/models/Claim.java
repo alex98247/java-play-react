@@ -1,14 +1,17 @@
 package models;
 
+import io.ebean.Finder;
 import io.ebean.Model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "claims")
 public class Claim extends Model {
+    @Id
     private long id;
     private long user_id;
     private Timestamp created_at;
@@ -21,14 +24,17 @@ public class Claim extends Model {
         super();
     }
 
-    public Claim(long id, long user_id, Timestamp created_at, boolean solved, Timestamp solved_at, String comment) {
+    public Claim(long id, long user_id, Timestamp created_at, boolean solved, Timestamp solved_at, String comment, String theme) {
         this.id = id;
         this.user_id = user_id;
         this.created_at = created_at;
         this.solved = solved;
         this.solved_at = solved_at;
         this.comment = comment;
+        this.theme = theme;
     }
+
+    public static final Finder<Long, Claim> find = new Finder<>(Claim.class);
 
     public void setId(long id) {
         this.id = id;
