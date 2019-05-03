@@ -47,9 +47,11 @@ class UserButtons extends Component {
   state = {credentials: this.credentials};
 
 
-  logout() {
+  async logout() {
     const {credentials} = this.state;
     this.props.addCredentials(credentials);
+
+    await fetch('/logout').then(async res => console.log(await res));
   }
 
   render() {
