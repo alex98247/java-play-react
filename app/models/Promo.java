@@ -7,19 +7,19 @@ import java.sql.Timestamp;
 public class Promo {
     private long id;
     private long game_id;
-    private Timestamp start;
-    private Timestamp end;
+    private Timestamp start_data;
+    private Timestamp end_data;
     private Integer discount;
 
     public Promo() {
         super();
     }
 
-    public Promo(long id, long game_id, Timestamp start, Timestamp end, Integer discount) {
+    public Promo(long id, long game_id, Timestamp start_data, Timestamp end_data, Integer discount) {
         this.id = id;
         this.game_id = game_id;
-        this.start = start;
-        this.end = end;
+        this.start_data = start_data;
+        this.end_data = end_data;
         this.discount = discount;
     }
 
@@ -31,12 +31,12 @@ public class Promo {
         this.game_id = game_id;
     }
 
-    public void setStart(Timestamp start) {
-        this.start = start;
+    public void setStart_data(Timestamp start_data) {
+        this.start_data = start_data;
     }
 
-    public void setEnd(Timestamp end) {
-        this.end = end;
+    public void setEnd_data(Timestamp end_data) {
+        this.end_data = end_data;
     }
 
     public void setDiscount(Integer discount) {
@@ -51,12 +51,12 @@ public class Promo {
         return game_id;
     }
 
-    public Timestamp getStart() {
-        return start;
+    public Timestamp getStart_data() {
+        return start_data;
     }
 
-    public Timestamp getEnd() {
-        return end;
+    public Timestamp getEnd_data() {
+        return end_data;
     }
 
     public Integer getDiscount() {
