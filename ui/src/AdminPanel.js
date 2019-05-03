@@ -20,19 +20,20 @@ class AdminPanel extends Component {
     this.setState({claims: body});
   }
 
-  async solved(claim){
+  async solved(claim) {
+    var solvedClaim = claim;
+    solvedClaim.solved = true;
+
     await fetch('/api/claim', {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(claim),
+      body: JSON.stringify(solvedClaim),
       credentials: 'include'
     }).then(async res => {
-      if (await res.ok) {
-      }
-      else {}
+
     });
   }
 
