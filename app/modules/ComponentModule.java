@@ -1,8 +1,9 @@
 package modules;
 
 import com.google.inject.AbstractModule;
-import service.GameService;
-import service.GameServiceImpl;
+import service.*;
+import tools.DbGame;
+import tools.DbGameImpl;
 
 public class ComponentModule extends AbstractModule {
 
@@ -10,5 +11,11 @@ public class ComponentModule extends AbstractModule {
     protected void configure() {
         bind(GameService.class).
                 to(GameServiceImpl.class);
+        bind(ClaimService.class).
+                to(ClaimServiceImpl.class);
+        bind(UserService.class).
+                to(UserServiceImpl.class);
+        bind(DbGame.class).
+                to(DbGameImpl.class);
     }
 }

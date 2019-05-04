@@ -1,5 +1,6 @@
 package authorization;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import modules.SecurityModule;
 import org.pac4j.core.client.Client;
 import org.pac4j.core.client.Clients;
@@ -14,8 +15,10 @@ import org.pac4j.core.http.adapter.HttpActionAdapter;
 import org.pac4j.core.profile.CommonProfile;
 import org.pac4j.jwt.config.signature.SecretSignatureConfiguration;
 import org.pac4j.jwt.profile.JwtGenerator;
+import play.libs.Json;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.pac4j.core.util.CommonHelper.*;
 
@@ -81,12 +84,13 @@ public class CustomCallbackLogic<R, C extends WebContext> extends DefaultCallbac
             logger.debug("profile: {}", profile);
             saveUserProfile(context, config, profile, saveInSession, multiProfile, renewSession);
 
-            if(profile != null) {
+            if (profile != null) {
                 final JwtGenerator generator = new JwtGenerator(new SecretSignatureConfiguration(SecurityModule.JWT_SALT));
                 token = generator.generate(profile);
             }
-
-            action = HttpAction.ok(context, "{\"token\": \"" + token + "\"}");
+            Set<String> roles = profile.getRoles();
+            JsonNode jsonNode = Json.toJson(roles);
+            action = HttpAction.ok(context, "{\"token\": \"" + token + "\",\"roles\":" + jsonNode + "}");
 
 
         } catch (final RuntimeException e) {
