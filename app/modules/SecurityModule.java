@@ -2,7 +2,6 @@ package modules;
 
 import authorization.Authentificator;
 import authorization.CustomCallbackLogic;
-import authorization.CustomLogoutLogic;
 import authorization.Roles;
 import be.objectify.deadbolt.java.cache.HandlerCache;
 import com.google.inject.AbstractModule;
