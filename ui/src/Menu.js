@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
+import AddGames from "./AddGames";
 
 class Menu extends Component {
 
@@ -16,9 +17,9 @@ class Menu extends Component {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav">
             <Button to={"/"} className="btn btn-success" style={{marginLeft: 10}}>Game List</Button>
-            <Button to={"/companies"} className="btn btn-success" style={{marginLeft: 10}}>Company List</Button>
             <Button tag={Link} to={"/games"} className="btn btn-success" style={{marginLeft: 10}}>Add Game</Button>
-            <Button tag={Link} to={"/company"} className="btn btn-success" style={{marginLeft: 10}}>Add Company</Button>
+            {(username) ? null :
+              <Button tag={Link} to={"/login"} className="btn btn-success" style={{marginLeft: 10}}>Login</Button>}
           </div>
           {(username) ? <UserButtons {...this.props} /> : null}
         </div>
@@ -29,21 +30,56 @@ class Menu extends Component {
 
 class UserButtons extends Component {
 
+  credentials = {
+    id: '',
+    username: '',
+    password: '',
+    token: '',
+    status: 200,
+    roles: []
+  };
+
   constructor(props) {
     super(props);
+    this.logout = this.logout.bind(this);
+  }
+
+  state = {credentials: this.credentials};
+
+
+  async logout() {
+    const {credentials} = this.state;
+    this.props.addCredentials(credentials);
+
+    await fetch('/logout').then(async res => console.log(await res));
   }
 
   render() {
     var credentials = this.props.credentials;
 
     return (
-      <div align="right">
+      <>
         <Button tag={Link} to={"/claim"} className="btn btn-success" style={{marginLeft: 10}}>Add Claim</Button>
-        {(credentials.role == 'ADMIN') ?
-          <Button tag={Link} to={"/admin"} className="btn btn-success" style={{marginLeft: 10}}>Admin
-            Panel</Button> : null}
+        {(credentials.roles.indexOf('ADMIN') != -1) ? <AdminButtons {...this.props} /> : null}
         <a className="navbar-brand" style={{marginLeft: 10}} href="#">{credentials.username}</a>
-      </div>
+        <Button onClick={this.logout} className="btn btn-success" style={{marginLeft: 10}}>Logout</Button>
+      </>
+    );
+  }
+}
+
+class AdminButtons extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <>
+        <Button tag={Link} to={"/admin"} className="btn btn-success" style={{marginLeft: 10}}>Admin Panel</Button>
+        <AddGames {...this.props}/>
+      </>
     );
   }
 }

@@ -10,4 +10,5 @@ public interface GameService {
     void deleteGame(long id);
     void createGame(Game game);
     void updateGame(Game game);
+    void createGames(List<Game> games);
 }
