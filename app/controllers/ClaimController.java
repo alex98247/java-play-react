@@ -8,6 +8,8 @@ import play.mvc.Result;
 import service.ClaimService;
 
 import javax.inject.Inject;
+import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class ClaimController extends Controller {
@@ -17,7 +19,11 @@ public class ClaimController extends Controller {
 
     public Result addClaim() {
         JsonNode json = request().body().asJson();
-        Claim claim = Json.fromJson(json, Claim.class);
+        Claim message = Json.fromJson(json, Claim.class);
+        Date date = new Date();
+        Timestamp ts = new Timestamp(date.getTime());
+        Timestamp empts = new Timestamp(0);
+        Claim claim = new Claim(message.getId(), message.getUser_id(), ts, false, empts, message.getComment(), message.getTheme());
         claimService.createClaim(claim);
         return ok();
     }
@@ -29,8 +35,15 @@ public class ClaimController extends Controller {
 
     public Result updateClaim(long id) {
         JsonNode json = request().body().asJson();
-        Claim claim = Json.fromJson(json, Claim.class);
-        claimService.updateClaim(claim);
+        Claim message = Json.fromJson(json, Claim.class);
+        if (message.isSolved()) {
+            Date date = new Date();
+            Timestamp ts = new Timestamp(date.getTime());
+            Claim claim = new Claim(message.getId(), message.getUser_id(), message.getCreated_at(), true, ts, message.getComment(), message.getTheme());
+            claimService.updateClaim(claim);
+        } else {
+            claimService.updateClaim(message);
+        }
         return ok();
     }
 
