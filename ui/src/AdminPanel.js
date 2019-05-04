@@ -23,7 +23,6 @@ class AdminPanel extends Component {
   async solved(claim) {
     var solvedClaim = claim;
     solvedClaim.solved = true;
-
     await fetch('/api/claim/' + solvedClaim.id, {
       method: 'PUT',
       headers: {
@@ -35,6 +34,10 @@ class AdminPanel extends Component {
     }).then(async res => {
 
     });
+    let indexClaim = [...this.state.claims].indexOf(claim);
+    let updatedClaims = [...this.state.claims];
+    updatedClaims[indexClaim].solved = 'solved';
+    this.setState({claims: updatedClaims});
   }
 
   render() {
@@ -48,7 +51,7 @@ class AdminPanel extends Component {
           <td>{claim.comment}</td>
           <td>{new Date(claim.created_at).toDateString()}</td>
           <td>{(claim.solved) ? "SOLVED" :
-            <Button onClick={this.solved(claim)} className="btn btn-success">Solve</Button>}
+            <Button onClick={() => this.solved(claim)} className="btn btn-success">Solve</Button>}
           </td>
         </tr>
       );
