@@ -35,8 +35,7 @@ PUT           /api/claim/$id<[0-9]+>        controllers.ClaimController.updateCl
 DELETE        /api/claim/$id<[0-9]+>        controllers.ClaimController.deleteClaim(id: Long)
 
 # Serve static assets under public directory
-GET           /*file                        controllers.FrontendController.assetOrDefault(file)
-
-# Serve static assets under public directory
-GET           /swagger.json                 controllers.ApiHelpController.getResources
-GET           /docs/                        controllers.Assets.at(path="/public/swagger",file="index.html")
+GET           /swagger.json                controllers.ApiHelpController.getResources
+GET           /docs/                       controllers.Assets.at(path="/public/swagger",file="index.html")
+GET           /docs/*file                  controllers.Assets.at(path="/public/swagger",file)
+GET           /*file                       controllers.FrontendController.assetOrDefault(file)

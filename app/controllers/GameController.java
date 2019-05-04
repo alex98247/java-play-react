@@ -18,7 +18,7 @@ public class GameController extends Controller {
     @Inject
     private GameService gameService;
 
-    @ApiOperation(value = "Add Game", notes = "Put game into list")
+    @ApiOperation(value = "Add Game", notes = "Put game from json into list")
     public Result addGame() {
         JsonNode json = request().body().asJson();
         Game game = Json.fromJson(json, Game.class);
@@ -26,14 +26,14 @@ public class GameController extends Controller {
         return ok();
     }
 
-    @ApiOperation(value = "Delete Game", notes = "Delete game from list")
+    @ApiOperation(value = "Delete Game", notes = "Delete game from list dy Id")
     @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorStatus.class)
     public Result deleteGame(@ApiParam(value = "Game Id", name = "id") long id) {
         gameService.deleteGame(id);
         return ok();
     }
 
-    @ApiOperation(value = "Update Game", notes = "Update game in list")
+    @ApiOperation(value = "Update Game", notes = "Update game in list from json")
     @ApiResponses({
             @ApiResponse(code = 404, message = "Game Not Found", response = ErrorStatus.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorStatus.class) })
