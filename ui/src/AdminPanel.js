@@ -24,7 +24,7 @@ class AdminPanel extends Component {
     var solvedClaim = claim;
     solvedClaim.solved = true;
 
-    await fetch('/api/claim', {
+    await fetch('/api/claim/' + solvedClaim.id, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -46,8 +46,12 @@ class AdminPanel extends Component {
           <td>{claim.id}</td>
           <td>{claim.theme}</td>
           <td>{claim.comment}</td>
-          <td><Button onClick={this.solved(claim)} className="btn btn-success">Solved</Button></td>
-        </tr>);
+          <td>{new Date(claim.created_at).toDateString()}</td>
+          <td>{(claim.solved) ? "SOLVED" :
+            <Button onClick={this.solved(claim)} className="btn btn-success">Solve</Button>}
+          </td>
+        </tr>
+      );
     });
 
     return (
@@ -59,6 +63,7 @@ class AdminPanel extends Component {
             <th>Id</th>
             <th>Theme</th>
             <th>Comment</th>
+            <th>Created date</th>
             <th></th>
           </tr>
           </thead>

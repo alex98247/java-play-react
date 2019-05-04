@@ -16,7 +16,7 @@ class Menu extends Component {
         <a className="navbar-brand" href="#">Menu</a>
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav">
-            <Button to={"/"} className="btn btn-success" style={{marginLeft: 10}}>Game List</Button>
+            <Button tag={Link} to={"/"} className="btn btn-success" style={{marginLeft: 10}}>Game List</Button>
             <Button tag={Link} to={"/games"} className="btn btn-success" style={{marginLeft: 10}}>Add Game</Button>
             {(username) ? null :
               <Button tag={Link} to={"/login"} className="btn btn-success" style={{marginLeft: 10}}>Login</Button>}
