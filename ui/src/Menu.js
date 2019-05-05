@@ -51,7 +51,7 @@ class UserButtons extends Component {
     const {credentials} = this.state;
     this.props.addCredentials(credentials);
 
-    await fetch('/logout').then(async res => console.log(await res));
+    await fetch('/logout').then(() => setTimeout(() => window.location.href = '/', 1 * 1000));
   }
 
   render() {

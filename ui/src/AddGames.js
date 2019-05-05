@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Form, FormGroup, Input, Label, Row} from 'reactstrap';
+import {Button, Form} from 'reactstrap';
 
 class AddGames extends Component {
 
@@ -28,7 +28,7 @@ class AddGames extends Component {
     event.preventDefault();
     const {adminParams} = this.state;
 
-    await fetch('api/addgames?token='+this.props.credentials.token, {
+    await fetch('api/addgames?token=' + this.props.credentials.token, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

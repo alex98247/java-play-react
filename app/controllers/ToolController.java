@@ -29,6 +29,8 @@ public class ToolController extends Controller {
         int gamesCount = game.getGamesCount();
         List<Game> games = dbGame.getGames(gamesCount);
         gameService.createGames(games);
-        return ok();
+        List<Game> gamesFromDb = gameService.getGames();
+        JsonNode jsonNode = Json.toJson(gamesFromDb);
+        return ok(jsonNode).as("application/json");
     }
 }
