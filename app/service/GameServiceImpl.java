@@ -1,7 +1,7 @@
 package service;
 
 import io.ebean.Model;
-import models.Game;
+import models.dao.Game;
 
 import java.util.List;
 

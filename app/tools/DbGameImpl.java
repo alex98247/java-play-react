@@ -5,8 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
-import models.Game;
-import play.libs.Json;
+import models.dao.Game;
 
 import java.lang.reflect.Type;
 import java.sql.Timestamp;

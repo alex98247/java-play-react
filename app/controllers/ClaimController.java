@@ -3,7 +3,7 @@ package controllers;
 import ch.qos.logback.core.status.ErrorStatus;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.*;
-import models.Claim;
+import models.dao.Claim;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;

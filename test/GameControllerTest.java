@@ -1,5 +1,5 @@
 import controllers.GameController;
-import models.Game;
+import models.dao.Game;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

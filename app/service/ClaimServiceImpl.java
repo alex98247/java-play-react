@@ -1,6 +1,6 @@
 package service;
 
-import models.Claim;
+import models.dao.Claim;
 
 import java.util.List;
 

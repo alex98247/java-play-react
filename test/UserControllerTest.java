@@ -10,7 +10,7 @@ import play.mvc.Result;
 
 import service.UserService;
 import controllers.UserController;
-import models.User;
+import models.dao.User;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;

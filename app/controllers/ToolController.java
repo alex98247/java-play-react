@@ -3,8 +3,8 @@ package controllers;
 import javax.inject.Inject;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import models.AdminParams;
-import models.Game;
+import models.dto.AdminParams;
+import models.dao.Game;
 import org.pac4j.play.java.Secure;
 import play.libs.Json;
 import play.mvc.Controller;

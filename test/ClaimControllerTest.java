@@ -1,5 +1,5 @@
 import controllers.ClaimController;
-import models.Claim;
+import models.dao.Claim;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
