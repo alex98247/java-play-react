@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
 import GameList from "./GameList";
-import GameForm from "./EditGame";
+import GameForm from "./GameForm";
 import LoginForm from "./LoginForm";
 import ClaimForm from "./ClaimForm";
 import AdminPanel from "./AdminPanel";
