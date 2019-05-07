@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Form, FormGroup, Input, Label} from 'reactstrap';
 
-class EditGame extends Component {
+class GameForm extends Component {
 
   emptyGame = {
     name: '',
@@ -38,7 +38,7 @@ class EditGame extends Component {
       },
       body: JSON.stringify(game),
       credentials: 'include'
-    });
+    }).then(() => setTimeout(() => window.location.href = '/', 1 * 1000));
   }
 
 
@@ -69,4 +69,4 @@ class EditGame extends Component {
   }
 }
 
-export default EditGame;
+export default GameForm;

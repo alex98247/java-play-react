@@ -1,5 +1,5 @@
 import controllers.ClaimController;
-import models.Claim;
+import models.dao.Claim;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +36,7 @@ public class ClaimControllerTest {
     @Test
     public void test_getClaims() {
         ArrayList<Claim> claims = new ArrayList<>();
-        Claim claim = new Claim(1, 1, new Timestamp(156780), true, new Timestamp(158780), "Easily", "Pavel");
+        Claim claim = new Claim(1, 1, new Timestamp(156780), false, new Timestamp(158780), "Easily", "Pavel");
         claims.add(claim);
 
         when(claimService.getClaims()).thenReturn(claims);
@@ -49,13 +49,13 @@ public class ClaimControllerTest {
     @Test
     public void test_result_getClaims() {
         ArrayList<Claim> claims = new ArrayList<>();
-        Claim claim = new Claim(1, 1, new Timestamp(156780), true, new Timestamp(158780), "Easily", "Pavel");
+        Claim claim = new Claim(1, 1, new Timestamp(156780), false, new Timestamp(158780), "Easily", "Pavel");
         claims.add(claim);
 
         when(claimService.getClaims()).thenReturn(claims);
         Result result = claimController.getClaims();
 
-        assertEquals(contentAsString(result), "[{\"id\":1,\"user_id\":1,\"created_at\":156780,\"solved\":true,\"solved_at\":158780,\"comment\":\"Easily\",\"theme\":\"Pavel\"}]");
+        assertEquals(contentAsString(result), "[{\"id\":1,\"user_id\":1,\"created_at\":156780,\"solved\":false,\"solved_at\":158780,\"comment\":\"Easily\",\"theme\":\"Pavel\"}]");
     }
 
     @Test

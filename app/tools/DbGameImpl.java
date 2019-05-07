@@ -5,16 +5,16 @@ import com.google.gson.reflect.TypeToken;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
-import models.Game;
-import play.libs.Json;
+import models.dao.Game;
 
 import java.lang.reflect.Type;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class DBGame {
+public class DbGameImpl implements DbGame {
 
     public List<Game> getGames(int count) {
         int quotient = count / 50;
@@ -38,7 +38,7 @@ public class DBGame {
         HttpResponse<JsonNode> jsonResponse = Unirest.post("https://api-v3.igdb.com/games")
                 .header("user-key", "d0fc4e5aa35986706d0b32bb67d615a7")
                 .header("Accept", "application/json")
-                .body("fields id,name,popularity,created_at; limit " + count + "; where created_at > " + timestamp.getTime() + ";")
+                .body("fields name,popularity,created_at; limit " + count + "; where created_at > " + timestamp.getTime() + ";")
                 .asJson();
 
         Gson googleJson = new GsonBuilder()
@@ -49,6 +49,7 @@ public class DBGame {
         }.getType();
         String jsonBody = jsonResponse.getBody().toString();
         ArrayList<Game> games = googleJson.fromJson(jsonBody, typeToken);
-        return games;
+        games.stream().forEach(x -> x.setId(0));
+        return games.stream().map(x-> new Game(0, x.getName(), x.getPopularity(), x.getCreated_at())).collect(Collectors.toList());
     }
 }

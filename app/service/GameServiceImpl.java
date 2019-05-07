@@ -1,6 +1,7 @@
 package service;
 
-import models.Game;
+import io.ebean.Model;
+import models.dao.Game;
 
 import java.util.List;
 
@@ -24,5 +25,9 @@ public class GameServiceImpl implements GameService {
 
     public void updateGame(Game game) {
         game.update();
+    }
+
+    public void createGames(List<Game> games) {
+        games.forEach(Model::save);
     }
 }

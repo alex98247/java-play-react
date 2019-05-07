@@ -1,6 +1,6 @@
 package service;
 
-import models.User;
+import models.dao.User;
 
 import java.util.List;
 

@@ -3,13 +3,15 @@ package controllers;
 import ch.qos.logback.core.status.ErrorStatus;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.*;
-import models.Claim;
+import models.dao.Claim;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import service.ClaimService;
 
 import javax.inject.Inject;
+import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Api(value = "Claim Controller", produces = "application/json")
@@ -21,7 +23,11 @@ public class ClaimController extends Controller {
     @ApiOperation(value = "Add Claim", notes = "Add new claim from json")
     public Result addClaim() {
         JsonNode json = request().body().asJson();
-        Claim claim = Json.fromJson(json, Claim.class);
+        Claim message = Json.fromJson(json, Claim.class);
+        Date date = new Date();
+        Timestamp ts = new Timestamp(date.getTime());
+        Timestamp empts = new Timestamp(0);
+        Claim claim = new Claim(message.getId(), message.getUser_id(), ts, false, empts, message.getComment(), message.getTheme());
         claimService.createClaim(claim);
         return ok();
     }
@@ -39,8 +45,15 @@ public class ClaimController extends Controller {
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorStatus.class) })
     public Result updateClaim(@ApiParam(value = "Game Id", name = "id") long id) {
         JsonNode json = request().body().asJson();
-        Claim claim = Json.fromJson(json, Claim.class);
-        claimService.updateClaim(claim);
+        Claim message = Json.fromJson(json, Claim.class);
+        if (message.isSolved()) {
+            Date date = new Date();
+            Timestamp ts = new Timestamp(date.getTime());
+            Claim claim = new Claim(message.getId(), message.getUser_id(), message.getCreated_at(), true, ts, message.getComment(), message.getTheme());
+            claimService.updateClaim(claim);
+        } else {
+            claimService.updateClaim(message);
+        }
         return ok();
     }
 

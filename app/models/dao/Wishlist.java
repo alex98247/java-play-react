@@ -1,4 +1,4 @@
-package models;
+package models.dao;
 
 import javax.persistence.Entity;
 import java.sql.Timestamp;

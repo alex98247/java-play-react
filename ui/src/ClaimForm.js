@@ -45,11 +45,7 @@ class ClaimForm extends Component {
       },
       body: JSON.stringify(claim),
       credentials: 'include'
-    }).then(async res => {
-      if (await res.ok) {
-      }
-      else {}
-    });
+    }).then(() => setTimeout(() => window.location.href = '/', 1 * 1000));
   }
 
 
