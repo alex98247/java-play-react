@@ -1,5 +1,7 @@
 package authorization;
 
+import models.dao.User;
+import org.mindrot.jbcrypt.BCrypt;
 import org.pac4j.core.context.WebContext;
 import org.pac4j.core.credentials.UsernamePasswordCredentials;
 import org.pac4j.core.credentials.authenticator.Authenticator;
@@ -18,18 +20,18 @@ public class Authentificator implements Authenticator<UsernamePasswordCredential
         } else {
             String username = credentials.getUsername();
             String password = credentials.getPassword();
-            //User user = User.find.query().where().eq("username", username).findOne();
-            //String userPassword = user.getPassword_hash().toString();
+            User user = User.find.query().where().like("login", username).findOne();
+            String userPasswordHash = user.getPassword_hash();
             if (CommonHelper.isBlank(username)) {
                 throw new CredentialsException("Username cannot be blank");
             } else if (CommonHelper.isBlank(password)) {
                 throw new CredentialsException("Password cannot be blank");
-            } else if (CommonHelper.areNotEquals(password, password)) {
+            } else if (!BCrypt.checkpw(password, userPasswordHash)) {
                 throw new CredentialsException("Username : '" + username + "' does not match password");
             } else {
                 CommonProfile profile = new CommonProfile();
                 Set<String> roles = new HashSet<>();
-                //roles.add(user.getRole().name());
+                roles.add(user.getRole().name());
                 roles.add(Roles.ADMIN.name());
                 profile.setId(username);
                 profile.setRoles(roles);

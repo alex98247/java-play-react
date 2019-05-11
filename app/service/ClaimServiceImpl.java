@@ -2,6 +2,8 @@ package service;
 
 import models.dao.Claim;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 public class ClaimServiceImpl implements ClaimService {
@@ -19,6 +21,12 @@ public class ClaimServiceImpl implements ClaimService {
     }
 
     public void createClaim(Claim claim) {
+        Date date = new Date();
+        Timestamp ts = new Timestamp(date.getTime());
+        Timestamp empts = new Timestamp(0);
+        claim.setCreated_at(ts);
+        claim.setSolved_at(empts);
+        claim.setSolved(false);
         claim.save();
     }
 
