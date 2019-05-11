@@ -43,8 +43,7 @@ public class ClaimController extends Controller {
             //return exception
         }
         CommonProfile profile = profileOptional.get();
-        long id = Long.parseLong(profile.getId());
-        History history = new History(id, "Create claim,");
+        History history = new History(profile.getId(), "Create claim");
         historyService.addHistory(history);
 
         claimService.createClaim(claim);

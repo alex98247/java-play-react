@@ -13,23 +13,23 @@ public class History extends Model {
 
     @Id
     private long id;
-    private long userId;
+    private String username;
     private String action;
 
-    public History(long userId, String action) {
+    public History(String username, String action) {
         
-        this.userId = userId;
+        this.username = username;
         this.action = action;
     }
 
     public static final Finder<Long, History> find = new Finder<>(History.class);
 
-    public long getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public long getId() {
