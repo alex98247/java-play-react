@@ -13,7 +13,6 @@
   },
   "proxy": "http://localhost:9000",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^4.3.1",
