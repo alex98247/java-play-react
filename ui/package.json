@@ -14,14 +14,15 @@
   "proxy": "http://localhost:9000",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "immutable": "^3.8.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.2",
-    "reactstrap": "6.5.0",
-    "immutable": "^3.8.2",
-    "react-redux": "^5.0.7",
-    "redux": "^4.0.0",
+    "react-scripts": "^3.0.0",
+    "reactstrap": "^6.5.0",
+    "redax": "0.0.0",
+    "redux": "^4.0.1",
     "redux-persist": "^5.10.0"
   },
   "devDependencies": {
