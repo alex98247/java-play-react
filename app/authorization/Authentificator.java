@@ -32,6 +32,7 @@ public class Authentificator implements Authenticator<UsernamePasswordCredential
                 CommonProfile profile = new CommonProfile();
                 Set<String> roles = new HashSet<>();
                 //roles.add(user.getRole().name());
+                roles.add(Roles.ADMIN.name());
                 profile.setId(username);
                 profile.setRoles(roles);
                 profile.addAttribute("username", username);
