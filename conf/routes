@@ -20,6 +20,8 @@ GET           /api/user                     controllers.UserController.getUsers
 GET           /api/user/$id<[0-9]+>         controllers.UserController.getUserById(id:Long)
 GET           /api/claim                    controllers.ClaimController.getClaims
 GET           /api/claim/$id<[0-9]+>        controllers.ClaimController.getClaimById(id:Long)
+GET           /api/wishlist                 controllers.WishlistController.getWishlists
+GET           /api/wishlist/$id<[0-9]+>     controllers.WishlistController.getWishlistById(id:Long)
 
 +nocsrf
 POST          /api/game                     controllers.GameController.addGame
@@ -33,6 +35,10 @@ DELETE        /api/user/$id<[0-9]+>         controllers.UserController.deleteUse
 POST          /api/claim                    controllers.ClaimController.addClaim
 PUT           /api/claim/$id<[0-9]+>        controllers.ClaimController.updateClaim(id: Long)
 DELETE        /api/claim/$id<[0-9]+>        controllers.ClaimController.deleteClaim(id: Long)
+POST          /api/wishlist                 controllers.WishlistController.addWishlist
+PUT           /api/wishlist/$id<[0-9]+>     controllers.WishlistController.updateWishlist(id: Long)
+DELETE        /api/wishlist/$id<[0-9]+>     controllers.WishlistController.deleteWishlist(id: Long)
+
 
 # Serve static assets under public directory
 GET           /*file                        controllers.FrontendController.assetOrDefault(file)
