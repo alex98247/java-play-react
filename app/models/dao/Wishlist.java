@@ -13,8 +13,8 @@ import java.sql.Timestamp;
 public class Wishlist extends Model {
     @Id
     private long id;
-    private long user_id;
-    private long game_id;
+    private long userId;
+    private long gameId;
     private Timestamp created_at;
     private boolean is_deleted;
 
@@ -22,10 +22,10 @@ public class Wishlist extends Model {
         super();
     }
 
-    public Wishlist(long id, long user_id, long game_id, Timestamp created_at, boolean is_deleted) {
+    public Wishlist(long id, long userId, long gameId, Timestamp created_at, boolean is_deleted) {
         this.id = id;
-        this.user_id = user_id;
-        this.game_id = game_id;
+        this.userId = userId;
+        this.gameId = gameId;
         this.created_at = created_at;
         this.is_deleted = is_deleted;
     }
@@ -36,12 +36,12 @@ public class Wishlist extends Model {
         this.id = id;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
-    public void setGame_id(long game_id) {
-        this.game_id = game_id;
+    public void setGameId(long gameId) {
+        this.gameId = gameId;
     }
 
     public void setCreated_at(Timestamp created_at) {
@@ -56,12 +56,12 @@ public class Wishlist extends Model {
         return id;
     }
 
-    public long getUser_id() {
-        return user_id;
+    public long getUserId() {
+        return userId;
     }
 
-    public long getGame_id() {
-        return game_id;
+    public long getGameId() {
+        return gameId;
     }
 
     public Timestamp getCreated_at() {

@@ -8,6 +8,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import controllers.CustomAuthorizer;
 import controllers.DemoHttpActionAdapter;
+import models.dao.User;
 import org.pac4j.core.authorization.authorizer.RequireAnyRoleAuthorizer;
 import org.pac4j.core.client.Clients;
 import org.pac4j.core.config.Config;
@@ -27,12 +28,16 @@ import play.Environment;
 import play.cache.SyncCacheApi;
 import play.mvc.Result;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 public class SecurityModule extends AbstractModule {
     public final static String JWT_SALT = "12345678901234567890123456789012";
 
     private final Configuration configuration;
 
-    private static class MyPac4jRoleHandler implements Pac4jRoleHandler { }
+    private static class MyPac4jRoleHandler implements Pac4jRoleHandler {
+    }
 
     private final String baseUrl;
 
@@ -70,6 +75,9 @@ public class SecurityModule extends AbstractModule {
         logoutController.setLocalLogout(true);
         logoutController.setCentralLogout(true);
         bind(LogoutController.class).toInstance(logoutController);
+
+        //add admin
+        bind(InitialData.class).asEagerSingleton();
     }
 
     @Provides

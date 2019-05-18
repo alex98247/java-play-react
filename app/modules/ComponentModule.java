@@ -19,5 +19,7 @@ public class ComponentModule extends AbstractModule {
                 to(WishlistServiceImpl.class);
         bind(DbGame.class).
                 to(DbGameImpl.class);
+        bind(HistoryService.class).
+                to(HistoryServiceImpl.class);
     }
 }

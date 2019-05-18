@@ -12,7 +12,7 @@ public class User extends Model {
     @Id
     private long id;
     private String login;
-    private Integer password_hash;
+    private String password_hash;
     private Timestamp created_at;
     private boolean is_deleted;
     @Enumerated(EnumType.STRING)
@@ -22,7 +22,7 @@ public class User extends Model {
         super();
     }
 
-    public User(long id, String login, Integer password_hash, Timestamp created_at, boolean is_deleted, Roles role) {
+    public User(long id, String login, String password_hash, Timestamp created_at, boolean is_deleted, Roles role) {
         this.id = id;
         this.login = login;
         this.password_hash = password_hash;
@@ -41,7 +41,7 @@ public class User extends Model {
         this.login = login;
     }
 
-    public void setPassword_hash(Integer password_hash) {
+    public void setPassword_hash(String password_hash) {
         this.password_hash = password_hash;
     }
 
@@ -61,7 +61,7 @@ public class User extends Model {
         return login;
     }
 
-    public Integer getPassword_hash() {
+    public String getPassword_hash() {
         return password_hash;
     }
 
