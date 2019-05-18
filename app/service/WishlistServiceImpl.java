@@ -4,7 +4,7 @@ import models.Wishlist;
 
 import java.util.List;
 
-public class WishlistServiceImpl {
+public class WishlistServiceImpl implements WishlistService {
     public Wishlist getWishlistById(long id) {
         return null;
     }
