@@ -1,12 +1,14 @@
-package models.dao;
+package models.dto;
+
+import models.dao.Game;
 
 import java.util.List;
 
-public class PageDao {
+public class PageDto {
     private int pageNumber;
     private List<Game> gameList;
 
-    public PageDao(int pageNumber, List<Game> gameList) {
+    public PageDto(int pageNumber, List<Game> gameList) {
 
         this.pageNumber = pageNumber;
         this.gameList = gameList;
@@ -18,5 +20,13 @@ public class PageDao {
 
     public void setGameList(List<Game> gameList) {
         this.gameList = gameList;
+    }
+
+    public int getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
     }
 }
