@@ -15,7 +15,11 @@ public class ComponentModule extends AbstractModule {
                 to(ClaimServiceImpl.class);
         bind(UserService.class).
                 to(UserServiceImpl.class);
+        bind(WishlistService.class).
+                to(WishlistServiceImpl.class);
         bind(DbGame.class).
                 to(DbGameImpl.class);
+        bind(HistoryService.class).
+                to(HistoryServiceImpl.class);
     }
 }

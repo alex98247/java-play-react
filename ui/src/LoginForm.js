@@ -37,8 +37,6 @@ class LoginForm extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const {credentials} = this.state;
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(credentials.password, salt);
 
     await fetch('/callback?client_name=FormClient', {
       method: 'POST',
@@ -46,7 +44,7 @@ class LoginForm extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: "username=" + credentials.username + "&" + "password=" + hash,
+      body: "username=" + credentials.username + "&" + "password=" + credentials.password,
       credentials: 'include'
     }).then(res => this.resultAction(res, credentials));
 

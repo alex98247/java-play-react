@@ -1,13 +1,20 @@
 package models.dao;
 
+import io.ebean.Finder;
+import io.ebean.Model;
+
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 
+@Table(name = "wishlist")
 @Entity
-public class Wishlist {
+public class Wishlist extends Model {
+    @Id
     private long id;
-    private long user_id;
-    private long game_id;
+    private long userId;
+    private long gameId;
     private Timestamp created_at;
     private boolean is_deleted;
 
@@ -15,24 +22,26 @@ public class Wishlist {
         super();
     }
 
-    public Wishlist(long id, long user_id, long game_id, Timestamp created_at, boolean is_deleted) {
+    public Wishlist(long id, long userId, long gameId, Timestamp created_at, boolean is_deleted) {
         this.id = id;
-        this.user_id = user_id;
-        this.game_id = game_id;
+        this.userId = userId;
+        this.gameId = gameId;
         this.created_at = created_at;
         this.is_deleted = is_deleted;
     }
+
+    public static final Finder<Long, Wishlist> find = new Finder<>(Wishlist.class);
 
     public void setId(long id) {
         this.id = id;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
-    public void setGame_id(long game_id) {
-        this.game_id = game_id;
+    public void setGameId(long gameId) {
+        this.gameId = gameId;
     }
 
     public void setCreated_at(Timestamp created_at) {
@@ -47,12 +56,12 @@ public class Wishlist {
         return id;
     }
 
-    public long getUser_id() {
-        return user_id;
+    public long getUserId() {
+        return userId;
     }
 
-    public long getGame_id() {
-        return game_id;
+    public long getGameId() {
+        return gameId;
     }
 
     public Timestamp getCreated_at() {
