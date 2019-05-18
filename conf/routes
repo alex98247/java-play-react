@@ -15,6 +15,7 @@ POST          /casProxyCallback             @org.pac4j.play.CallbackController.c
 GET           /logout                       @org.pac4j.play.LogoutController.logout()
 
 GET           /api/game                     controllers.GameController.getGames
+GET           /api/games/:size/:page        controllers.GameController.getPage(page: Int, size: Int)
 GET           /api/game/$id<[0-9]+>         controllers.GameController.getGameById(id: Long)
 GET           /api/user                     controllers.UserController.getUsers
 GET           /api/user/$id<[0-9]+>         controllers.UserController.getUserById(id:Long)

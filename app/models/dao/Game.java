@@ -1,7 +1,9 @@
 package models.dao;
 
+import io.ebean.Ebean;
 import io.ebean.Finder;
 import io.ebean.Model;
+import io.ebean.Query;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -29,6 +31,8 @@ public class Game extends Model {
     }
 
     public static final Finder<Long, Game> find = new Finder<>(Game.class);
+
+    public static final Query<Game> pageFinder = Ebean.find(Game.class);
 
     public void setId(long id) {
         this.id = id;
