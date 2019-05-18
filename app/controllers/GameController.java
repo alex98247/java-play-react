@@ -58,8 +58,8 @@ public class GameController extends Controller {
     @ApiResponses({
             @ApiResponse(code = 404, message = "Games Not Found", response = ErrorStatus.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorStatus.class) })
-    public Result getPage(int page, int size) {
-        List<Game> games = gameService.getPage(page, size).getList();
+    public Result getPage(int page) {
+        List<Game> games = gameService.getPage(page, 15).getList();
         JsonNode jsonNode = Json.toJson(games);
         return ok(jsonNode).as("application/json");
     }

@@ -3,47 +3,47 @@
 # ~~~~
 
 # Serve index page from public directory
-GET           /                             controllers.FrontendController.index()
+GET           /                                controllers.FrontendController.index()
 
 # Serve static assets under public directory
 #GET     /*file                      controllers.FrontendController.assetOrDefault(file)
 
-GET           /callback                     @org.pac4j.play.CallbackController.callback()
-POST          /callback                     @org.pac4j.play.CallbackController.callback()
-GET           /casProxyCallback             @org.pac4j.play.CallbackController.callback()
-POST          /casProxyCallback             @org.pac4j.play.CallbackController.callback()
-GET           /logout                       @org.pac4j.play.LogoutController.logout()
+GET           /callback                        @org.pac4j.play.CallbackController.callback()
+POST          /callback                        @org.pac4j.play.CallbackController.callback()
+GET           /casProxyCallback                @org.pac4j.play.CallbackController.callback()
+POST          /casProxyCallback                @org.pac4j.play.CallbackController.callback()
+GET           /logout                          @org.pac4j.play.LogoutController.logout()
 
-GET           /api/game                     controllers.GameController.getGames
-GET           /api/games/:size/:page        controllers.GameController.getPage(page: Int, size: Int)
-GET           /api/game/$id<[0-9]+>         controllers.GameController.getGameById(id: Long)
-GET           /api/user                     controllers.UserController.getUsers
-GET           /api/user/$id<[0-9]+>         controllers.UserController.getUserById(id:Long)
-GET           /api/claim                    controllers.ClaimController.getClaims
-GET           /api/claim/$id<[0-9]+>        controllers.ClaimController.getClaimById(id:Long)
-GET           /api/wishlist                 controllers.WishlistController.getWishlists
-GET           /api/wishlist/$id<[0-9]+>     controllers.WishlistController.getWishlistById(id:Long)
+GET           /api/game                        controllers.GameController.getGames
+GET           /api/games/:page                 controllers.GameController.getPage(page: Int)
+GET           /api/game/$id<[0-9]+>            controllers.GameController.getGameById(id: Long)
+GET           /api/user                        controllers.UserController.getUsers
+GET           /api/user/$id<[0-9]+>            controllers.UserController.getUserById(id:Long)
+GET           /api/claim                       controllers.ClaimController.getClaims
+GET           /api/claim/$id<[0-9]+>           controllers.ClaimController.getClaimById(id:Long)
+GET           /api/wishlist                    controllers.WishlistController.getWishlists
+GET           /api/wishlist/$id<[0-9]+>        controllers.WishlistController.getWishlistById(id:Long)
 
 +nocsrf
-POST          /api/game                     controllers.GameController.addGame
+POST          /api/game                        controllers.GameController.addGame
 +nocsrf
-POST          /api/addgames                 controllers.ToolController.addGameToDb
-PUT           /api/game/$id<[0-9]+>         controllers.GameController.updateGame(id: Long)
-DELETE        /api/game/$id<[0-9]+>         controllers.GameController.deleteGame(id: Long)
-POST          /api/user                     controllers.UserController.addUser
-PUT           /api/user/$id<[0-9]+>         controllers.UserController.updateUser(id: Long)
-DELETE        /api/user/$id<[0-9]+>         controllers.UserController.deleteUser(id: Long)
-POST          /api/claim                    controllers.ClaimController.addClaim
-PUT           /api/claim/$id<[0-9]+>        controllers.ClaimController.updateClaim(id: Long)
-DELETE        /api/claim/$id<[0-9]+>        controllers.ClaimController.deleteClaim(id: Long)
-POST          /api/wishlist                 controllers.WishlistController.addWishlist
-PUT           /api/wishlist/$id<[0-9]+>     controllers.WishlistController.updateWishlist(id: Long)
-DELETE        /api/wishlist/$id<[0-9]+>     controllers.WishlistController.deleteWishlist(id: Long)
+POST          /api/addgames                    controllers.ToolController.addGameToDb
+PUT           /api/game/$id<[0-9]+>            controllers.GameController.updateGame(id: Long)
+DELETE        /api/game/$id<[0-9]+>            controllers.GameController.deleteGame(id: Long)
+POST          /api/user                        controllers.UserController.addUser
+PUT           /api/user/$id<[0-9]+>            controllers.UserController.updateUser(id: Long)
+DELETE        /api/user/$id<[0-9]+>            controllers.UserController.deleteUser(id: Long)
+POST          /api/claim                       controllers.ClaimController.addClaim
+PUT           /api/claim/$id<[0-9]+>           controllers.ClaimController.updateClaim(id: Long)
+DELETE        /api/claim/$id<[0-9]+>           controllers.ClaimController.deleteClaim(id: Long)
+POST          /api/wishlist                    controllers.WishlistController.addWishlist
+PUT           /api/wishlist/$id<[0-9]+>        controllers.WishlistController.updateWishlist(id: Long)
+DELETE        /api/wishlist/$id<[0-9]+>        controllers.WishlistController.deleteWishlist(id: Long)
 
 
 # Serve static assets under public directory
-GET           /*file                        controllers.FrontendController.assetOrDefault(file)
+GET           /*file                           controllers.FrontendController.assetOrDefault(file)
 
 # Serve static assets under public directory
-GET           /swagger.json                 controllers.ApiHelpController.getResources
-GET           /docs/                        controllers.Assets.at(path="/public/swagger",file="index.html")
+GET           /swagger.json                    controllers.ApiHelpController.getResources
+GET           /docs/                           controllers.Assets.at(path="/public/swagger",file="index.html")
