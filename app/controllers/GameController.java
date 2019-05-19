@@ -2,6 +2,7 @@ package controllers;
 
 import ch.qos.logback.core.status.ErrorStatus;
 import com.fasterxml.jackson.databind.JsonNode;
+import io.ebean.PagedList;
 import io.swagger.annotations.*;
 import models.dao.Game;
 import models.dto.PageDto;
@@ -60,8 +61,8 @@ public class GameController extends Controller {
             @ApiResponse(code = 404, message = "Games Not Found", response = ErrorStatus.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorStatus.class)})
     public Result getPage(int page) {
-        List<Game> games = gameService.getPage(page, 15).getList();
-        PageDto pageDto = new PageDto(page, games);
+        PagedList<Game> pagedList = gameService.getPage(page, 15);
+        PageDto pageDto = new PageDto(page, pagedList);
         JsonNode jsonNode = Json.toJson(pageDto);
         return ok(jsonNode).as("application/json");
     }
