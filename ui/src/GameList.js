@@ -10,19 +10,21 @@ class GameList extends Component {
     super(props);
   }
 
-  async reload() {
-    const response = await fetch('/api/games/' + this.props.pageGames);
-    console.log(response);
+  async reload(page) {
+    const response = await fetch('/api/games/' + page);
     const body = await
       response.json();
     this.props.setGames(body);
   }
 
   async componentWillMount() {
-    await reload();
+    await this.reload(this.props.pageGames.pageNumber);
   }
 
   render() {
+
+    const right = <Button variant="contained" component="span" onClick={() => this.reload(this.props.pageGames.pageNumber-1)}> previous </Button>
+    const left =  <Button variant="contained" component="span" onClick={() => this.reload(this.props.pageGames.pageNumber+1)}> next </Button>
 
     const games = this.props.pageGames.gameList;
     const gameList = games.map(game => {
@@ -37,6 +39,7 @@ class GameList extends Component {
     return (
       <div>
         <Menu {...this.props}/>
+        <div align="center" width="100%" className="bg-dark">
         <table style={{marginBottom: 0}} className="table table-dark">
           <thead>
           <tr>
@@ -49,23 +52,15 @@ class GameList extends Component {
           {gameList}
           </tbody>
         </table>
-        <div align="center" width="100%" className="bg-dark">
+        {left}
+        {right}
         </div>
       </div>
     );
   }
 };
 
-class Left extends Component {
-  render() {
-    return (
-      <Button variant="contained" component="span" onClick={() => this.reload()}> previous </Button>
-    );
-  }
-};
-
 function mapStateToProps(state) {
-  console.log(state);
   return {
     credentials: state.credentials,
     pageGames: state.pageGames
