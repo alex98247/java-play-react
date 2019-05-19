@@ -16,8 +16,6 @@ import service.ClaimService;
 import service.HistoryService;
 
 import javax.inject.Inject;
-import java.util.Date;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,15 +33,8 @@ public class ClaimController extends Controller {
     public Result addClaim() {
         JsonNode json = request().body().asJson();
         Claim claim = Json.fromJson(json, Claim.class);
-
-        PlayWebContext webContext = new PlayWebContext(ctx(), playSessionStore);
-        ProfileManager<CommonProfile> profileManager = new ProfileManager(webContext);
-        Optional<CommonProfile> profileOptional = profileManager.get(true);
-        if (!profileOptional.isPresent()) {
-            //return exception
-        }
-        CommonProfile profile = profileOptional.get();
-        History history = new History(profile.getId(), "Create claim");
+        String profileId = getProfileId();
+        History history = new History(profileId, "Create claim");
         historyService.addHistory(history);
 
         claimService.createClaim(claim);
@@ -63,15 +54,9 @@ public class ClaimController extends Controller {
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorStatus.class)})
     public Result updateClaim(@ApiParam(value = "Game Id", name = "id") long id) {
         JsonNode json = request().body().asJson();
-        Claim message = Json.fromJson(json, Claim.class);
-        if (message.isSolved()) {
-            Date date = new Date();
-            Timestamp ts = new Timestamp(date.getTime());
-            Claim claim = new Claim(message.getId(), message.getUser_id(), message.getCreated_at(), true, ts, message.getComment(), message.getTheme());
-            claimService.updateClaim(claim);
-        } else {
-            claimService.updateClaim(message);
-        }
+        Claim claim = Json.fromJson(json, Claim.class);
+        claimService.updateClaim(claim);
+
         return ok();
     }
 
@@ -93,6 +78,17 @@ public class ClaimController extends Controller {
         Claim claim = claimService.getClaimById(id);
         JsonNode jsonNode = Json.toJson(claim);
         return ok(jsonNode).as("application/json");
+    }
+
+    private String getProfileId() {
+        PlayWebContext webContext = new PlayWebContext(ctx(), playSessionStore);
+        ProfileManager<CommonProfile> profileManager = new ProfileManager(webContext);
+        Optional<CommonProfile> profileOptional = profileManager.get(true);
+        if (!profileOptional.isPresent()) {
+            //return exception
+        }
+        CommonProfile profile = profileOptional.get();
+        return profile.getId();
     }
 
 }
