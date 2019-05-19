@@ -32,8 +32,6 @@ public class Game extends Model {
 
     public static final Finder<Long, Game> find = new Finder<>(Game.class);
 
-    public static final Query<Game> pageFinder = Ebean.find(Game.class);
-
     public void setId(long id) {
         this.id = id;
     }

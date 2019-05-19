@@ -17,7 +17,11 @@ public class GameServiceImpl implements GameService {
         return Game.find.all();
     }
 
-    public PagedList<Game> getPage(int page, int size) { return Game.pageFinder.where().setMaxRows(size).setFirstRow((page-1)*size).findPagedList();}
+    public PagedList<Game> getPage(int page, int size) {
+        return Game.find.query()
+                .setMaxRows(size)
+                .setFirstRow((page-1)*size)
+                .findPagedList();}
 
     public void deleteGame(long id) {
         Game.db().delete(id);
