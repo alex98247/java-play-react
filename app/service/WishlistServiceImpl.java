@@ -1,6 +1,7 @@
 package service;
 
-import models.Wishlist;
+
+import models.dao.Wishlist;
 
 import java.util.List;
 
