@@ -31,6 +31,13 @@ public class ClaimServiceImpl implements ClaimService {
     }
 
     public void updateClaim(Claim claim) {
+
+        if (claim.isSolved()) {
+            Date date = new Date();
+            Timestamp ts = new Timestamp(date.getTime());
+            claim.setSolved(true);
+            claim.setSolved_at(ts);
+        }
         claim.update();
     }
 }
