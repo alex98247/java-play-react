@@ -2,27 +2,29 @@ import React, {Component} from 'react';
 import Menu from "./Menu";
 import * as actions from "./actions"
 import {connect} from "react-redux";
+import {Button} from "reactstrap";
 
 class GameList extends Component {
 
-  state = {
-    games: []
-  };
-
   constructor(props) {
     super(props);
-    console.log(this.props);
   }
 
-  async componentDidMount() {
-    const response = await fetch('/api/game');
-    const body = await response.json();
-    this.setState({games: body});
+  async reload() {
+    const response = await fetch('/api/games/' + this.props.pageGames);
+    console.log(response);
+    const body = await
+      response.json();
+    this.props.setGames(body);
+  }
+
+  async componentWillMount() {
+    await reload();
   }
 
   render() {
 
-    const games = this.state.games;
+    const games = this.props.pageGames.gameList;
     const gameList = games.map(game => {
       return (
         <tr>
@@ -54,9 +56,19 @@ class GameList extends Component {
   }
 };
 
+class Left extends Component {
+  render() {
+    return (
+      <Button variant="contained" component="span" onClick={() => this.reload()}> previous </Button>
+    );
+  }
+};
+
 function mapStateToProps(state) {
+  console.log(state);
   return {
-    credentials: state.credentials
+    credentials: state.credentials,
+    pageGames: state.pageGames
   };
 }
 

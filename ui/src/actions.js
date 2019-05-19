@@ -4,3 +4,10 @@ export function addCredentials (credentials) {
     credentials
   }
 };
+
+export function setGames (pageGames) {
+  return {
+    type: "SET_GAMES",
+    pageGames
+  }
+};
