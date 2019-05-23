@@ -1,6 +1,5 @@
-import authorization.Roles;
 import controllers.WishlistController;
-import models.Wishlist;
+import models.dao.Wishlist;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
