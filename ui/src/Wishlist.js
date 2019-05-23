@@ -2,35 +2,37 @@ import React, {Component} from 'react';
 import Menu from "./Menu";
 import * as actions from "./actions"
 import {connect} from "react-redux";
+import {Button} from "reactstrap";
 
-class GameList extends Component {
+class Wishlist extends Component {
 
   state = {
-    games: []
+    wishlist: []
   };
 
   constructor(props) {
     super(props);
-    console.log(this.props);
   }
 
   async componentDidMount() {
-    const response = await fetch('/api/game');
+    const response = await fetch('/api/wishlist');
     const body = await response.json();
-    this.setState({games: body});
+    this.setState({wishlist: body});
   }
 
   render() {
 
-    const games = this.state.games;
-    const gameList = games.map(game => {
+    const wishlist = this.state.wishlist;
+    const list = wishlist.map(e => {
       return (
         <tr>
-          <td>{game.id}</td>
-          <td>{game.name}</td>
-          <td>{game.popularity}</td>
-          <td></td>
-        </tr>);
+          <td>{e.id}</td>
+          <td>{e.comment}</td>
+          <td>
+            <Button onClick={() => this.solved(e)} className="btn btn-danger">Delete</Button>
+          </td>
+        </tr>
+      );
     });
 
     return (
@@ -40,13 +42,12 @@ class GameList extends Component {
           <thead>
           <tr>
             <th>Id</th>
-            <th>Name</th>
-            <th>Popularity</th>
+            <th>Game</th>
             <th></th>
           </tr>
           </thead>
           <tbody>
-          {gameList}
+          {list}
           </tbody>
         </table>
         <div align="center" width="100%" className="bg-dark">
@@ -62,4 +63,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, actions)(GameList);
+export default connect(mapStateToProps, actions)(Wishlist);
