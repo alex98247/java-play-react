@@ -13,6 +13,7 @@ import service.GameService;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Api(value = "Game Controller", produces = "application/json")
 public class GameController extends Controller {
@@ -52,7 +53,11 @@ public class GameController extends Controller {
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorStatus.class)})
     public Result getGames() {
         List<Game> games = gameService.getGames();
-        JsonNode jsonNode = Json.toJson(games);
+        List<GameDto> gameDtos = games
+                .stream()
+                .map(game -> new GameDto(game))
+                .collect(Collectors.toList());
+        JsonNode jsonNode = Json.toJson(gameDtos);
         return ok(jsonNode).as("application/json");
     }
 
