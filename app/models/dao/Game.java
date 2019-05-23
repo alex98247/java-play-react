@@ -4,11 +4,13 @@ import io.ebean.Ebean;
 import io.ebean.Finder;
 import io.ebean.Model;
 import io.ebean.Query;
+import models.dto.GameDto;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 @Entity
 @Table(name = "games")
@@ -28,6 +30,17 @@ public class Game extends Model {
         this.name = name;
         this.popularity = popularity;
         this.created_at = created_at;
+    }
+
+    public Game(GameDto game) {
+        this.id = game.getId();
+        this.name = game.getName();
+        this.popularity = game.getPopularity();
+        try {
+            this.created_at = new java.sql.Timestamp(new SimpleDateFormat("dd-MM-yyyy").parse(game.getCreated_at()).getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static final Finder<Long, Game> find = new Finder<>(Game.class);
