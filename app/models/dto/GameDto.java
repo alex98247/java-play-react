@@ -11,6 +11,7 @@ public class GameDto {
     private String name;
     private double popularity;
     private String created_at;
+    private boolean isWish;
 
     public GameDto(Game game) {
         this.id = game.getId();
@@ -52,4 +53,11 @@ public class GameDto {
     }
 
 
+    public boolean isWish() {
+        return isWish;
+    }
+
+    public void setWish(boolean wish) {
+        isWish = wish;
+    }
 }
