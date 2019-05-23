@@ -8,8 +8,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class InitialData {
-    public InitialData() {
 
+    public InitialData() {
         User user = User.find.query().where().like("login", "admin").findOne();
         if (user == null) {
             User admin = new User();

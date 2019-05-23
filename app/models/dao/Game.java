@@ -1,7 +1,9 @@
 package models.dao;
 
+import io.ebean.Ebean;
 import io.ebean.Finder;
 import io.ebean.Model;
+import io.ebean.Query;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
