@@ -39,10 +39,10 @@ POST          /api/wishlist                 controllers.WishlistController.addWi
 PUT           /api/wishlist/$id<[0-9]+>     controllers.WishlistController.updateWishlist(id: Long)
 DELETE        /api/wishlist/$id<[0-9]+>     controllers.WishlistController.deleteWishlist(id: Long)
 
+# Serve static assets under public directory
+GET           /swagger.json                    controllers.ApiHelpController.getResources
+GET           /docs                            controllers.Assets.at(path="/public/swagger", file="index.html")
+GET           /docs/*file                      controllers.Assets.at(path="/public/swagger", file)
 
 # Serve static assets under public directory
 GET           /*file                        controllers.FrontendController.assetOrDefault(file)
-
-# Serve static assets under public directory
-GET           /swagger.json                 controllers.ApiHelpController.getResources
-GET           /docs/                        controllers.Assets.at(path="/public/swagger",file="index.html")
