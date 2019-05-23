@@ -15,7 +15,7 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     public void deleteWishlist(long id) {
-        Wishlist.db().delete(id);
+        Wishlist.find.query().where().eq("id", id).delete();
     }
 
     public void createWishlist(Wishlist wishlist) {

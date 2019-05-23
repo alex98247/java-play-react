@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.*;
 import models.dao.Game;
 import models.dto.GameDto;
+import models.dto.PageDto;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -57,6 +58,17 @@ public class GameController extends Controller {
                 .map(game -> new GameDto(game))
                 .collect(Collectors.toList());
         JsonNode jsonNode = Json.toJson(gameDtos);
+        return ok(jsonNode).as("application/json");
+    }
+
+    @ApiOperation(value = "Get Page", notes = "Get page of games", response = JsonNode.class)
+    @ApiResponses({
+            @ApiResponse(code = 404, message = "Games Not Found", response = ErrorStatus.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorStatus.class)})
+    public Result getPage(int page) {
+        List<Game> pagedList = gameService.getPage(page, 15);
+        PageDto pageDto = new PageDto(page, pagedList);
+        JsonNode jsonNode = Json.toJson(pageDto);
         return ok(jsonNode).as("application/json");
     }
 

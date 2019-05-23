@@ -5,8 +5,13 @@ import models.dao.User;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
+
     public User getUserById(long id) {
-        return null;
+         return User.find.query().where().eq("id", id).findOne();
+    }
+
+    public User getUserByUsername(String username) {
+        return User.find.query().where().eq("login", username).findOne();
     }
 
     public List<User> getUsers() {

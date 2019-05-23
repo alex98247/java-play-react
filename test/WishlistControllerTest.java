@@ -1,4 +1,3 @@
-import authorization.Roles;
 import controllers.WishlistController;
 import models.dao.Wishlist;
 import org.junit.Before;
