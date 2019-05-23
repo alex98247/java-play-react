@@ -47,4 +47,3 @@ GET           /docs/*file                      controllers.Assets.at(path="/publ
 
 # Serve static assets under public directory
 GET           /*file                           controllers.FrontendController.assetOrDefault(file)
-
