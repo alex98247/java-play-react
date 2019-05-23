@@ -6,19 +6,19 @@ import java.util.List;
 
 public class PageDto {
     private int pageNumber;
-    private List<Game> gameList;
+    private List<GameDto> gameList;
 
-    public PageDto(int pageNumber, List<Game> pagedList) {
+    public PageDto(int pageNumber, List<GameDto> pagedList) {
 
         this.pageNumber = pageNumber;
         this.gameList = pagedList;
     }
 
-    public List<Game> getGameList() {
+    public List<GameDto> getGameList() {
         return gameList;
     }
 
-    public void setGameList(List<Game> gameList) {
+    public void setGameList(List<GameDto> gameList) {
         this.gameList = gameList;
     }
 
