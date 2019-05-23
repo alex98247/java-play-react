@@ -1,8 +1,6 @@
 package service;
 
-import io.ebean.Ebean;
 import io.ebean.Model;
-import io.ebean.PagedList;
 import models.dao.Game;
 
 import java.util.List;
@@ -10,20 +8,18 @@ import java.util.List;
 public class GameServiceImpl implements GameService {
 
     public Game getGameById(long id) {
-        return null;
+        return  Game.find.query().where().eq("id", id).findOne();
     }
 
     public List<Game> getGames() {
         return Game.find.all();
     }
 
-    public PagedList<Game> getPage(int page, int size) {
+    public List<Game> getPage(int page, int size) {
         return Game.find.query()
-                .fetch("game_id")
                 .setFirstRow((page-1)*size)
                 .setMaxRows(size)
-                .orderBy("id")
-                .findPagedList();
+                .findList();
     }
 
     public void deleteGame(long id) {

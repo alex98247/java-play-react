@@ -1,20 +1,17 @@
 package models.dto;
 
-import io.ebean.PagedList;
 import models.dao.Game;
 
 import java.util.List;
 
 public class PageDto {
     private int pageNumber;
-    private final int totalNumber;
     private List<Game> gameList;
 
-    public PageDto(int pageNumber, PagedList<Game> pagedList) {
+    public PageDto(int pageNumber, List<Game> pagedList) {
 
         this.pageNumber = pageNumber;
-        this.totalNumber = pagedList.getTotalPageCount();
-        this.gameList = pagedList.getList();
+        this.gameList = pagedList;
     }
 
     public List<Game> getGameList() {
@@ -33,5 +30,4 @@ public class PageDto {
         this.pageNumber = pageNumber;
     }
 
-    public int getTotalNumber() { return totalNumber; }
 }

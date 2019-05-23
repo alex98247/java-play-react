@@ -14,10 +14,18 @@ class Wishlist extends Component {
     super(props);
   }
 
-  async componentDidMount() {
+  async reload(){
     const response = await fetch('/api/wishlist');
     const body = await response.json();
     this.setState({wishlist: body});
+  }
+
+  async componentDidMount() {
+    await this.reload();
+  }
+
+  async delete(id){
+    await fetch(`/api/wishlist/${id}`, {method: 'DELETE'}).then(() => this.reload());
   }
 
   render() {
@@ -27,9 +35,9 @@ class Wishlist extends Component {
       return (
         <tr>
           <td>{e.id}</td>
-          <td>{e.comment}</td>
+          <td>{e.game}</td>
           <td>
-            <Button onClick={() => this.solved(e)} className="btn btn-danger">Delete</Button>
+            <Button onClick={() => this.delete(e.id)} className="btn btn-danger">Delete</Button>
           </td>
         </tr>
       );
