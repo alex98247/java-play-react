@@ -10,7 +10,7 @@ class Registration extends Component {
   emptyForm = {
     login: '',
     password: '',
-    role: 'user',
+    role: 'USER',
     created_at: new Date()
   };
 
@@ -18,7 +18,7 @@ class Registration extends Component {
     super(props);
     this.state = {
       user: this.emptyForm,
-      password2: ''
+      passwordCh: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,9 +27,9 @@ class Registration extends Component {
   handleChange(event) {
     const target = event.target;
     const name = target.name;
-    if (name === "password2") {
-      let password2 = target.value;
-      this.setState({password2: password2})
+    if (name === "passwordCh") {
+      let passwordCh = target.value;
+      this.setState({passwordCh: passwordCh})
     } else {
       let user = {...this.state.user};
       user[name] = target.value;
@@ -39,8 +39,9 @@ class Registration extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    const {user, password2} = this.state;
-    if (user.password === password2) {
+    const {user, passwordCh} = this.state;
+    console.log(user);
+    if (user.password === passwordCh) {
       await fetch('/api/user', {
         method: 'POST',
         headers: {
@@ -50,16 +51,16 @@ class Registration extends Component {
         body: JSON.stringify(user),
         credentials: 'include'
       });
-      this.props.history.push('/user');
+      this.props.history.push('/login');
     }
   }
 
   render() {
-    const {user, password2} = this.state;
+    const {user, passwordCh} = this.state;
 
-    let errorPassword =<h1></h1>;
-    if(user.password !== user.password2) {
-      errorPassword = <h1 style={{color: 'red'}}>Passwords must match</h1>;
+    let errorPassword =<div></div>;
+    if((user.password !== passwordCh)&&(passwordCh !== '') ) {
+      errorPassword = <div style={{color: 'red'}}>Passwords must match</div>;
     }
 
     return <div>
@@ -67,24 +68,26 @@ class Registration extends Component {
         <h2>Registration</h2>
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
-            <Label for="number">Name</Label>
-            <Input type="text" name="" id="login" value={user.login || ''}
+            <Label for="name">Name</Label>
+            <Input type="text" name="login" id="login" value={user.login || ''}
                    onChange={this.handleChange} autoComplete="login"/>
           </FormGroup>
           <FormGroup>
-            <Label for="model">Password</Label>
+            <Label for="password">Password</Label>
             <Input type="text" name="password" id="password" value={user.password || ''}
                    onChange={this.handleChange} autoComplete="password"/>
           </FormGroup>
           <FormGroup>
-            <Label for="year">Password</Label>
-            <Input type="text" name="passwordCheck" id="passwordCheck" value={password2 || ''}
-                   onChange={this.handleChange} autoComplete="password2"/>
+            <Label for="pass">Confirm Password</Label>
+            <Input type="text" name="passwordCh" id="password" value={passwordCh || ''}
+                   onChange={this.handleChange} autoComplete="passwordCh"/>
           </FormGroup>
           <FormGroup>
-            {{errorPassword}}
+            <div>
+            {errorPassword}
+            </div>
             <Button className="btn_name" color="primary" type="submit">Save</Button>
-            <Button className="btn_name" color="secondary" tag={Link} to="/user">Cancel</Button>
+            <Button className="btn_name" color="secondary" tag={Link} to="/user" style={{marginRight: 900}}>Cancel</Button>
           </FormGroup>
         </Form>
       </Container>

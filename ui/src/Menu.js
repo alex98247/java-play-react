@@ -51,20 +51,21 @@ class UserButtons extends Component {
     const {credentials} = this.state;
     this.props.addCredentials(credentials);
 
-    await fetch('/logout').then(() => setTimeout(() => window.location.href = '/', 1 * 1000));
+    await fetch('/logout').then(() => setTimeout(() => window.location.href = '/', 1000));
   }
 
   render() {
-    var credentials = this.props.credentials;
+    const credentials = this.props.credentials;
 
-    return (
-      <>
-        <Button tag={Link} to={"/claim"} className="btn btn-success" style={{marginLeft: 10}}>Add Claim</Button>
-        {(credentials.roles.indexOf('ADMIN') != -1) ? <AdminButtons {...this.props} /> : null}
-        <a className="navbar-brand" style={{marginLeft: 10}} href="#">{credentials.username}</a>
-        <Button onClick={this.logout} className="btn btn-success" style={{marginLeft: 10}}>Logout</Button>
-      </>
-    );
+
+    return null
+    // return <div>
+    //     <Button tag={Link} to={"/claim"} className="btn btn-success" style={{marginLeft: 10}}>Add Claim</Button>
+    //     {(credentials.roles.indexOf('ADMIN') !== -1) ? <AdminButtons {...this.props} /> : null}
+    //     <a className="navbar-brand" style={{marginLeft: 10}} href="#">{credentials.username}</a>
+    //     <Button onClick={this.logout} className="btn btn-success" style={{marginLeft: 10}}>Logout</Button>
+    //   </div>
+
   }
 }
 

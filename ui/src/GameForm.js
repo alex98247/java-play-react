@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import {Button, Form, FormGroup, Input, Label} from 'reactstrap';
+import Menu from "./Menu";
+//import DatePicker from 'react-bootstrap-date-picker';
 
 class GameForm extends Component {
+
 
   emptyGame = {
     name: '',
@@ -30,6 +33,7 @@ class GameForm extends Component {
     event.preventDefault();
     const {game} = this.state;
 
+    console.log(game);
     const response = await fetch('/api/game', {
       method: 'POST',
       headers: {
@@ -42,29 +46,34 @@ class GameForm extends Component {
   }
 
 
-
   render() {
     const {game} = this.state;
 
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <FormGroup>
-          <Label for="name">Name</Label>
-          <Input type="text" name="name" id="name" value={game.name || ''} onChange={this.handleChange}/>
-        </FormGroup>
-        <FormGroup>
-          <Label for="popularity">Popularity</Label>
-          <Input type="text" name="popularity" id="popularity" value={game.popularity || ''} onChange={this.handleChange}/>
-        </FormGroup>
-        <FormGroup>
-          <Label for="created_at">Created_at</Label>
-          <Input type="text" name="created_at" id="created_at" value={game.created_at || ''} onChange={this.handleChange}>
-          </Input>
-        </FormGroup>
-        <FormGroup>
-          <Button color="primary" className="btn" type="submit">Save</Button>
-        </FormGroup>
-      </Form>
+      <div>
+        <Menu {...this.props}/>
+        <Form onSubmit={this.handleSubmit}>
+          <FormGroup>
+            <Label for="name">Name</Label>
+            <Input type="text" name="name" id="name" value={game.name || ''} onChange={this.handleChange}/>
+          </FormGroup>
+          <FormGroup>
+            <Label for="popularity">Popularity</Label>
+            <Input type="text" name="popularity" id="popularity" value={game.popularity || ''}
+                   onChange={this.handleChange}/>
+          </FormGroup>
+          <FormGroup>
+            <Label for="created_at">Created_at</Label>
+            <Input type="text" name="created_at" id="created_at" value={game.created_at || ''}
+                   onChange={this.handleChange}>
+            </Input>
+          </FormGroup>
+          {/*<DatePicker value={this.state.value}  onChange={this.handleChange}/>*/}
+          <FormGroup>
+            <Button color="primary" className="btn" type="submit">Save</Button>
+          </FormGroup>
+        </Form>
+      </div>
     )
   }
 }

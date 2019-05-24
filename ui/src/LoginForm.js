@@ -86,7 +86,7 @@ class LoginForm extends Component {
         <FormGroup>
           <Button color="primary" className="btn" type="submit">Войти</Button>
         </FormGroup>
-        {(credentials.status == 200) ? null : <ErrorMessage/>}
+        {(credentials.status === 200) ? null : <ErrorMessage/>}
       </Form>
 
     )
@@ -101,7 +101,7 @@ class ErrorMessage extends Component {
       </div>
     );
   }
-};
+}
 
 function mapStateToProps(state) {
   return {

@@ -6,6 +6,7 @@ import GameForm from "./GameForm";
 import LoginForm from "./LoginForm";
 import ClaimForm from "./ClaimForm";
 import AdminPanel from "./AdminPanel";
+import Registration from "./Registration";
 
 class App extends Component {
 
@@ -18,6 +19,7 @@ class App extends Component {
           <Route path='/login' component={LoginForm}/>
           <Route path='/claim' component={ClaimForm}/>
           <Route path='/admin' component={AdminPanel}/>
+          <Route path='/registration' component={Registration}/>
         </Switch>
       </Router>
     );
