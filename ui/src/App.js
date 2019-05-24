@@ -7,6 +7,7 @@ import LoginForm from "./LoginForm";
 import ClaimForm from "./ClaimForm";
 import AdminPanel from "./AdminPanel";
 import Wishlist from "./Wishlist";
+import Registration from "./Registration";
 
 class App extends Component {
 
@@ -20,6 +21,7 @@ class App extends Component {
           <Route path='/claim' component={ClaimForm}/>
           <Route path='/admin' component={AdminPanel}/>
           <Route path='/wishlist' component={Wishlist}/>
+          <Route path='/registration' component={Registration}/>
         </Switch>
       </Router>
     );
