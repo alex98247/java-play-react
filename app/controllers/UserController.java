@@ -4,6 +4,8 @@ import ch.qos.logback.core.status.ErrorStatus;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.*;
 import models.dao.User;
+import org.json.JSONObject;
+import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import play.libs.Json;
@@ -25,7 +27,10 @@ public class UserController extends Controller{
     @ApiOperation(value = "Add User", notes = "Add new user from json")
     public Result addUser() {
         JsonNode json = request().body().asJson();
+        String password = json.get("password").asText();
+
         User user = Json.fromJson(json, User.class);
+        user.setPassword_hash(BCrypt.hashpw(password, BCrypt.gensalt(10)));
         userService.createUser(user);
         return ok();
     }

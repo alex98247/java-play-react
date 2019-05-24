@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {Button, Form, FormGroup, Input, Label} from 'reactstrap';
+import {Button, Form, FormGroup, Input, Label, Container} from 'reactstrap';
 import "./actions.js"
 import {connect} from "react-redux";
 import * as actions from "./actions";
-import {Redirect} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 class LoginForm extends Component {
 
@@ -71,24 +71,26 @@ class LoginForm extends Component {
     const {credentials, loggedIn} = this.state;
 
     return (
-      <Form onSubmit={this.handleSubmit}>
-        {(loggedIn)? <Redirect to='/' /> : null}
-        <FormGroup>
-          <Label for="username">Username</Label>
-          <Input type="text" name="username" id="username" value={credentials.username || ''}
-                 onChange={this.handleChange}/>
-        </FormGroup>
-        <FormGroup>
-          <Label for="password">Password</Label>
-          <Input type="password" name="password" id="password" value={credentials.password || ''}
-                 onChange={this.handleChange}/>
-        </FormGroup>
-        <FormGroup>
-          <Button color="primary" className="btn" type="submit">Войти</Button>
-        </FormGroup>
-        {(credentials.status === 200) ? null : <ErrorMessage/>}
-      </Form>
-
+      <Container>
+        <Form onSubmit={this.handleSubmit}>
+          {(loggedIn) ? <Redirect to='/'/> : null}
+          <FormGroup>
+            <Label for="username">Username</Label>
+            <Input type="text" name="username" id="username" value={credentials.username || ''}
+                   onChange={this.handleChange}/>
+          </FormGroup>
+          <FormGroup>
+            <Label for="password">Password</Label>
+            <Input type="password" name="password" id="password" value={credentials.password || ''}
+                   onChange={this.handleChange}/>
+          </FormGroup>
+          <FormGroup>
+            <Button color="primary" className="btn" type="submit">Войти</Button>
+            <Button color="secondary" className="btn" tag={Link} to={"/registration"}>Регистрация</Button>
+          </FormGroup>
+          {(credentials.status === 200) ? null : <ErrorMessage/>}
+        </Form>
+      </Container>
     )
   }
 }
@@ -101,7 +103,7 @@ class ErrorMessage extends Component {
       </div>
     );
   }
-}
+};
 
 function mapStateToProps(state) {
   return {
