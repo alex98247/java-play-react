@@ -59,9 +59,7 @@ class UserButtons extends Component {
 
     return (
       <>
-        <Button tag={Link} to={"/wishlist"} className="btn btn-success" style={{marginLeft: 10}}>WishList</Button>
-        {(credentials.roles.indexOf('ADMIN') != -1) ? null :
-          <Button tag={Link} to={"/claim"} className="btn btn-success" style={{marginLeft: 10}}>Add Claim</Button>}
+        <Button tag={Link} to={"/claim"} className="btn btn-success" style={{marginLeft: 10}}>Add Claim</Button>
         {(credentials.roles.indexOf('ADMIN') != -1) ? <AdminButtons {...this.props} /> : null}
         <a className="navbar-brand" style={{marginLeft: 10}} href="#">{credentials.username}</a>
         <Button onClick={this.logout} className="btn btn-success" style={{marginLeft: 10}}>Logout</Button>
